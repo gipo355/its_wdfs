@@ -1,0 +1,21 @@
+{
+  "name": "its_wdfs",
+  "version": "1.0.0",
+  "description": "monorepo for its web dev course 2023",
+  "scripts": {
+    "postinstall": "husky install"
+  },
+  "keywords": [],
+  "author": "gipo355",
+  "devDependencies": {
+    "commitizen": "4.3.0",
+    "cz-conventional-changelog": "3.3.0",
+    "husky": "8.0.3",
+    "syncpack": "11.2.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
