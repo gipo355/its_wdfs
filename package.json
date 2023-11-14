@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "monorepo for its web dev course 2023",
   "scripts": {
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "release": "standard-version"
   },
   "keywords": [],
   "author": "gipo355",
@@ -11,6 +12,7 @@
     "commitizen": "4.3.0",
     "cz-conventional-changelog": "3.3.0",
     "husky": "8.0.3",
+    "standard-version": "^9.5.0",
     "syncpack": "11.2.1"
   },
   "config": {
