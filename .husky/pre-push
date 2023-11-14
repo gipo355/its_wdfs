@@ -2,8 +2,8 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo '########## fixing packages semver...'
-# pnpm syncpack lint-semver-ranges
-pnpm syncpack set-semver-ranges
+pnpm syncpack lint-semver-ranges
+# pnpm syncpack set-semver-ranges
 echo '########## fixed packages semver'
 
 echo '########## finding mismatches in package.json...'
