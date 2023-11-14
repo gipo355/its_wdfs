@@ -15,7 +15,7 @@ devDependencies:
     specifier: 8.0.3
     version: 8.0.3
   standard-version:
-    specifier: ^9.5.0
+    specifier: 9.5.0
     version: 9.5.0
   syncpack:
     specifier: 11.2.1
