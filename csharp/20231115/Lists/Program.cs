@@ -1,7 +1,4 @@
-using System;
-
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using Exercise.One;
 
 // List ( ex array )
 // uses generics
@@ -36,10 +33,33 @@ for (var i = 0; i < myList.Count; i++)
 }
 
 // new method
+// foreach (var item in myList)
+// {
+//     Console.WriteLine(item);
+// }
+
+// foreach (var item in myList)
+// {
+//     Console.WriteLine(item);
+// }
+
+// has lambdas
 // myList.ForEach((item) => Console.WriteLine(item));
+// !NOTE: has callbacks
+// can be passed the param with callback
 myList.ForEach(Console.WriteLine);
+
+// common methods
+// myList.Clear();
+
+// get single item
+Console.WriteLine($"myList[0]: {myList[0]}");
 
 Console.WriteLine($"myList.Count: {myList.Count}");
 
-// log the list
+// print the list in a single line
 Console.WriteLine($"myList: {myList}");
+Console.WriteLine($"myList: {string.Join(", ", myList)}");
+
+// ex1
+ExerciseOne.PrintTemps(ExerciseOne.GetTempsList());
