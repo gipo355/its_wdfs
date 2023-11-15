@@ -62,4 +62,12 @@ Console.WriteLine($"myList: {myList}");
 Console.WriteLine($"myList: {string.Join(", ", myList)}");
 
 // ex1
-ExerciseOne.PrintTemps(ExerciseOne.GetTempsList());
+// ExerciseOne.PrintTemps(ExerciseOne.GetTempsList());
+
+// ex2
+
+var randomList = new List<int>() { 10, 20, 30, 40, 50 };
+
+var randomListAvg = randomList.Aggregate((acc, item) => acc + item) / randomList.Count;
+
+Console.WriteLine($"randomListAvg: {randomListAvg}");

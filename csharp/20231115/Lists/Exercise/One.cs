@@ -42,18 +42,18 @@ public static class ExerciseOne
     {
         foreach (var temp in customList)
         {
-            // var tempType = temp switch
-            // {
-            //     >= 25 => "hot",
-            //     >= 15 => "warm",
-            //     _ => "cold"
-            // };
-            var tempType =
-                temp >= 25
-                    ? "hot"
-                    : temp >= 15
-                        ? "warm"
-                        : "cold";
+            var tempType = temp switch
+            {
+                >= 25 => "hot",
+                >= 15 => "warm",
+                _ => "cold"
+            };
+            // var tempType =
+            //     temp >= 25
+            //         ? "hot"
+            //         : temp >= 15
+            //             ? "warm"
+            //             : "cold";
             Console.WriteLine($"Temperature {temp} is {tempType}");
         }
     }
