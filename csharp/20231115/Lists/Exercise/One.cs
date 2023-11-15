@@ -1,15 +1,17 @@
 namespace Exercise.One;
 
-public class ExerciseOne
+using System.Globalization;
+
+public static class ExerciseOne
 {
     private static string GetInput(string message)
     {
         Console.WriteLine(message);
         var input = Console.ReadLine();
 
-        if (input == null || input == "")
+        if (string.IsNullOrEmpty(input))
         {
-            throw new Exception("Invalid input");
+            throw new ArgumentException("Input cannot be null or empty", nameof(message));
         }
 
         return input;
@@ -17,13 +19,19 @@ public class ExerciseOne
 
     public static List<double> GetTempsList()
     {
-        var numTemps = double.Parse(GetInput("How many temperatures do you want to enter?"));
+        var numTemps = double.Parse(
+            GetInput("How many temperatures do you want to enter?"),
+            CultureInfo.InvariantCulture
+        );
 
         var temps = new List<double>();
 
         for (var i = 0; i < numTemps; i++)
         {
-            var temp = double.Parse(GetInput($"Enter temperature {i + 1}"));
+            var temp = double.Parse(
+                GetInput($"Enter temperature {i + 1}"),
+                CultureInfo.InvariantCulture
+            );
             temps.Add(temp);
         }
 
