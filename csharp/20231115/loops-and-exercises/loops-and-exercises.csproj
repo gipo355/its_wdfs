@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageReference Include="xUnit" Version="2.6.1" />
+    <PackageReference Include="xunit" Version="2.5.0" />
   </ItemGroup>
 
 </Project>
