@@ -4,7 +4,7 @@ using System.Globalization;
 
 public static class ExerciseOne
 {
-    private static string GetInput(string message)
+    public static string GetInput(string message)
     {
         Console.WriteLine(message);
         var input = Console.ReadLine();
@@ -17,15 +17,27 @@ public static class ExerciseOne
         return input;
     }
 
-    public static List<double> GetTempsList()
+    public static List<double> GetTempsList(string numberOfTemps)
     {
+        // Convert num temps input passed to method to double
         var numTemps = double.Parse(
-            GetInput("How many temperatures do you want to enter?"),
+            // GetInput("How many temperatures do you want to enter?"),
+            numberOfTemps,
             CultureInfo.InvariantCulture
         );
 
-        var temps = new List<double>();
+        // var temps = new List<double>();
 
+        // return a list of temps given user input (list of doubles)
+        // function must not be callind user input here
+        return GetTempsInput(numTemps); // sideEffects, not testable
+
+        // return temps;
+    }
+
+    private static List<double> GetTempsInput(double numTemps)
+    {
+        var temps = new List<double>();
         for (var i = 0; i < numTemps; i++)
         {
             var temp = double.Parse(
@@ -34,7 +46,6 @@ public static class ExerciseOne
             );
             temps.Add(temp);
         }
-
         return temps;
     }
 

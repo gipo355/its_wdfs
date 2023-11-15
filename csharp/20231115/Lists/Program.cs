@@ -64,7 +64,9 @@ Console.WriteLine($"myList: {myList}");
 Console.WriteLine($"myList: {string.Join(", ", myList)}");
 
 // ex1
-// ExerciseOne.PrintTemps(ExerciseOne.GetTempsList());
+ExerciseOne.PrintTemps(
+    ExerciseOne.GetTempsList(ExerciseOne.GetInput("How many temperatures do you want to enter?"))
+);
 
 // ex2
 
