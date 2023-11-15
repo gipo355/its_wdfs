@@ -9,5 +9,9 @@ public static class Program
         Console.WriteLine("Hello, World!");
 
         Methods.SayHello();
+
+        var added = Methods.AddTwo(3, 4);
+
+        Console.WriteLine($"3 + 4 = {added}");
     }
 }

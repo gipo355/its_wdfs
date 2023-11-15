@@ -1,6 +1,6 @@
 namespace Main.Secondary;
 
-public static class Methods
+public class Methods
 {
     public static void SayHello()
     {
@@ -10,4 +10,6 @@ public static class Methods
         // while
         // do while
     }
+
+    public static int AddTwo(int x, int y) => x + y;
 }
