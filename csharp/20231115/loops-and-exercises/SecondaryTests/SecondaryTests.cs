@@ -1,11 +1,11 @@
-using NUnit.Framework;
+namespace Main.SecondaryTests;
 
-namespace Main.Secondary;
+using Main.Secondary;
+using Xunit;
 
-[TestFixture]
 public class SecondaryTests
 {
-    [Test]
+    [Fact]
     public void AddTwo_WithPositiveNumbers_ReturnsCorrectSum()
     {
         // Arrange
@@ -14,13 +14,13 @@ public class SecondaryTests
         int expected = 15;
 
         // Act
-        int result = Secondary.AddTwo(x, y);
+        int result = Methods.AddTwo(x, y);
 
         // Assert
-        Assert.AreEqual(expected, result);
+        Assert.Equal(expected, result);
     }
 
-    [Test]
+    [Fact]
     public void AddTwo_WithNegativeNumbers_ReturnsCorrectSum()
     {
         // Arrange
@@ -29,13 +29,13 @@ public class SecondaryTests
         int expected = -15;
 
         // Act
-        int result = Secondary.AddTwo(x, y);
+        int result = Methods.AddTwo(x, y);
 
         // Assert
-        Assert.AreEqual(expected, result);
+        Assert.Equal(expected, result);
     }
 
-    [Test]
+    [Fact]
     public void AddTwo_WithZero_ReturnsCorrectSum()
     {
         // Arrange
@@ -44,9 +44,9 @@ public class SecondaryTests
         int expected = 10;
 
         // Act
-        int result = Secondary.AddTwo(x, y);
+        int result = Methods.AddTwo(x, y);
 
         // Assert
-        Assert.AreEqual(expected, result);
+        Assert.Equal(expected, result);
     }
 }

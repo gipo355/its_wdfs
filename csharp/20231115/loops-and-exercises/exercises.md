@@ -9,3 +9,8 @@ e.g. num 1 = 3, num 2 = 5, num 3 = 7
 xxxxxxx
 xxx
 xxxxxxxxx
+
+## allinea la tabella, stampa la tavola pitagorica allineata
+
+writing \t adds a tab
+use nested loop
