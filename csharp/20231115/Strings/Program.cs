@@ -1,9 +1,9 @@
-﻿
-string email;
+﻿string email;
 email = "tony@gmail.com";
 
 // methods for sttings
 Console.WriteLine(email.Length);
+
 // email.Aggregate
 // email.Contains("@");
 // email.Append("gmail.com");
@@ -27,7 +27,43 @@ Console.WriteLine(email.Length);
 // email.TrimStart();
 // email.ToList();
 // email.Concat("gmail.com");
-email.ElementAt(0);
-email.ElementAt(-1);
+// email.ElementAt(0);
+// email.ElementAt(-1);
 
+var surname = "Stark";
 
+var methods = new Strings.Methods();
+
+try
+{
+    var cf = methods.GetCF(surname);
+    Console.WriteLine(cf);
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+}
+
+namespace Strings
+{
+    public class Methods
+    {
+        private readonly List<char> vowels = new() { 'a', 'e', 'i', 'o', 'u' };
+
+        public string GetCF(string surname)
+        {
+            var surArr = surname.ToLower().ToArray();
+            var cf = string.Join(
+                    "",
+                    Array.FindAll(
+                        surArr,
+                        // c => c is not 'a' and not 'e' and not 'i' and not 'o' and not 'u'
+                        c => !this.vowels.Contains(c)
+                    )[..3]
+                )
+                .ToUpper();
+
+            return cf;
+        }
+    }
+}
