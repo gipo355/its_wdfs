@@ -40,26 +40,21 @@ public static class ExerciseOne
 
     public static void PrintTemps(List<double> customList)
     {
-        var tempType = "";
-        customList.ForEach(
-            (temp) =>
-            {
-                if (temp >= 25)
-                {
-                    tempType = "hot";
-                }
-
-                if (temp is < 25 and >= 15)
-                {
-                    tempType = "warm";
-                }
-
-                if (temp < 15)
-                {
-                    tempType = "cold";
-                }
-                Console.WriteLine($"Temperature {temp} is {tempType}");
-            }
-        );
+        foreach (var temp in customList)
+        {
+            // var tempType = temp switch
+            // {
+            //     >= 25 => "hot",
+            //     >= 15 => "warm",
+            //     _ => "cold"
+            // };
+            var tempType =
+                temp >= 25
+                    ? "hot"
+                    : temp >= 15
+                        ? "warm"
+                        : "cold";
+            Console.WriteLine($"Temperature {temp} is {tempType}");
+        }
     }
 }
