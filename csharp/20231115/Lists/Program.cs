@@ -1,4 +1,6 @@
+using System.Text.Json.Serialization;
 using Exercise.One;
+using Newtonsoft.Json;
 
 // List ( ex array )
 // uses generics
@@ -68,6 +70,29 @@ Console.WriteLine($"myList: {string.Join(", ", myList)}");
 
 var randomList = new List<int>() { 10, 20, 30, 40, 50 };
 
+// get avg
 var randomListAvg = randomList.Aggregate((acc, item) => acc + item) / randomList.Count;
 
+// get max and min
+var minMaxObj = randomList.Aggregate(
+    new Lists.MinMax() { Min = int.MaxValue, Max = int.MinValue },
+    (acc, item) =>
+        new Lists.MinMax()
+        {
+            Min = item < acc.Min ? item : acc.Min,
+            Max = item > acc.Max ? item : acc.Max
+        }
+);
+
+Console.WriteLine(JsonConvert.SerializeObject(minMaxObj));
+
 Console.WriteLine($"randomListAvg: {randomListAvg}");
+
+namespace Lists
+{
+    public struct MinMax
+    {
+        public int Min { get; set; }
+        public int Max { get; set; }
+    }
+}
