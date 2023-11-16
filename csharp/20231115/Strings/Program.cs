@@ -1,4 +1,4 @@
-﻿string email;
+string email;
 email = "tony@gmail.com";
 
 // methods for sttings
