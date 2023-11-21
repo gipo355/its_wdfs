@@ -29,8 +29,7 @@ var myList = new List<int>() { 10, 20, 30, 40, 50 };
 // read the list
 // boomer method with for
 // for (int i = 0; i < myList.Count; i++)
-for (var i = 0; i < myList.Count; i++)
-{
+for (var i = 0; i < myList.Count; i++) {
     Console.WriteLine(myList[i]);
 }
 
@@ -79,8 +78,7 @@ var randomListAvg = randomList.Aggregate((acc, item) => acc + item) / randomList
 var minMaxObj = randomList.Aggregate(
     new Lists.MinMax() { Min = int.MaxValue, Max = int.MinValue },
     (acc, item) =>
-        new Lists.MinMax()
-        {
+        new Lists.MinMax() {
             Min = item < acc.Min ? item : acc.Min,
             Max = item > acc.Max ? item : acc.Max
         }
@@ -90,10 +88,8 @@ Console.WriteLine(JsonConvert.SerializeObject(minMaxObj));
 
 Console.WriteLine($"randomListAvg: {randomListAvg}");
 
-namespace Lists
-{
-    public struct MinMax
-    {
+namespace Lists {
+    public struct MinMax {
         public int Min { get; set; }
         public int Max { get; set; }
     }
