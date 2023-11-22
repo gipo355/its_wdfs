@@ -1,9 +1,7 @@
 namespace InitialConsole;
 
-public static class Program
-{
-    public static void Main()
-    {
+public static class Program {
+    public static void Main() {
         Console.WriteLine("Hello World!");
 
         const double a = 1.00;

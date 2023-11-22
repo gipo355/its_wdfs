@@ -34,24 +34,18 @@ var surname = "Stark";
 
 var methods = new Strings.Methods();
 
-try
-{
+try {
     var cf = methods.GetCF(surname);
     Console.WriteLine(cf);
-}
-catch (Exception e)
-{
+} catch (Exception e) {
     Console.WriteLine(e);
 }
 
-namespace Strings
-{
-    public class Methods
-    {
+namespace Strings {
+    public class Methods {
         private readonly List<char> vowels = new() { 'a', 'e', 'i', 'o', 'u' };
 
-        public string GetCF(string surname)
-        {
+        public string GetCF(string surname) {
             var surArr = surname.ToLower().ToArray();
             var cf = string.Join(
                     "",

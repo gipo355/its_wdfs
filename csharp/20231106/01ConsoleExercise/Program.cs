@@ -14,8 +14,7 @@ var methods = new ConsoleExercise.Methods();
 
 var (triangleBaseInput, triangleHeightInput) = methods.GetTriangleInputs();
 
-if (triangleBaseInput != 0 || triangleHeightInput != 0)
-{
+if (triangleBaseInput != 0 || triangleHeightInput != 0) {
     var triangleInput2Area = new ConsoleExercise.Triangle(
         triangleBaseInput,
         triangleHeightInput
@@ -24,15 +23,12 @@ if (triangleBaseInput != 0 || triangleHeightInput != 0)
     Console.WriteLine($"Triangle area is {triangleInput2Area}");
 }
 
-namespace ConsoleExercise
-{
-    internal class Triangle
-    {
+namespace ConsoleExercise {
+    internal class Triangle {
         private readonly double triangleBase;
         private readonly double triangleHeight;
 
-        public Triangle(double triangleBase, double triangleHeight)
-        {
+        public Triangle(double triangleBase, double triangleHeight) {
             this.triangleBase = triangleBase;
             this.triangleHeight = triangleHeight;
         }
@@ -40,16 +36,12 @@ namespace ConsoleExercise
         public double GetArea() => this.triangleBase * this.triangleHeight / 2;
     };
 
-    internal class Methods
-    {
-        public T GetInput<T>(string message)
-        {
-            try
-            {
+    internal class Methods {
+        public T GetInput<T>(string message) {
+            try {
                 Console.WriteLine(message + "(q to quit)");
                 var input = Console.ReadLine();
-                if (input == "q")
-                {
+                if (input == "q") {
                     Console.WriteLine("Exiting...");
                     return default(T);
                 }
@@ -57,29 +49,21 @@ namespace ConsoleExercise
                 var parsedInput = Convert.ToDouble(input);
 
                 return (T)Convert.ChangeType(parsedInput, typeof(T));
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 throw new Exception("Error parsing input");
-            }
-            finally
-            {
+            } finally {
                 Console.WriteLine("Finally block");
             }
         }
 
-        public (double, double) GetTriangleInputs()
-        {
-            try
-            {
+        public (double, double) GetTriangleInputs() {
+            try {
                 var triangleHeightInput = this.GetInput<double>("Enter triangle height: ");
                 var triangleBaseInput = this.GetInput<double>("Enter triangle base: ");
 
                 return (triangleHeightInput, triangleBaseInput);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Console.WriteLine("Error parsing input");
                 return (0, 0);
             }
