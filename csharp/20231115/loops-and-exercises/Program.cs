@@ -1,17 +1,15 @@
-﻿namespace Main;
+namespace Main;
 
 using Main.Secondary;
 
-public static class Program
-{
-    public static void Main()
-    {
-        Console.WriteLine("Hello, World!");
+public static class Program {
+  public static void Main() {
+    Console.WriteLine("Hello, World!");
 
-        Methods.SayHello();
+    Methods.SayHello();
 
-        var added = Methods.AddTwo(3, 4);
+    var added = Methods.AddTwo(3, 4);
 
-        Console.WriteLine($"3 + 4 = {added}");
-    }
+    Console.WriteLine($"3 + 4 = {added}");
+  }
 }

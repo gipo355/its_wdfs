@@ -35,29 +35,29 @@ var surname = "Stark";
 var methods = new Strings.Methods();
 
 try {
-    var cf = methods.GetCF(surname);
-    Console.WriteLine(cf);
+  var cf = methods.GetCF(surname);
+  Console.WriteLine(cf);
 } catch (Exception e) {
-    Console.WriteLine(e);
+  Console.WriteLine(e);
 }
 
 namespace Strings {
-    public class Methods {
-        private readonly List<char> vowels = new() { 'a', 'e', 'i', 'o', 'u' };
+  public class Methods {
+    private readonly List<char> vowels = new() { 'a', 'e', 'i', 'o', 'u' };
 
-        public string GetCF(string surname) {
-            var surArr = surname.ToLower().ToArray();
-            var cf = string.Join(
-                    "",
-                    Array.FindAll(
-                        surArr,
-                        // c => c is not 'a' and not 'e' and not 'i' and not 'o' and not 'u'
-                        c => !this.vowels.Contains(c)
-                    )[..3]
-                )
-                .ToUpper();
+    public string GetCF(string surname) {
+      var surArr = surname.ToLower().ToArray();
+      var cf = string.Join(
+              "",
+              Array.FindAll(
+                  surArr,
+                  // c => c is not 'a' and not 'e' and not 'i' and not 'o' and not 'u'
+                  c => !this.vowels.Contains(c)
+              )[..3]
+          )
+          .ToUpper();
 
-            return cf;
-        }
+      return cf;
     }
+  }
 }
