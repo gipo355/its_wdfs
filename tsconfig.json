@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
-    "lib": ["esnext"],
+    "lib": [
+      "esnext",
+      "DOM.Iterable",
+      "DOM",
+      "ScriptHost",
+      "ESNext.AsyncIterable"
+    ],
+    "rootDir": ".",
+    "outDir": "./dist",
     "target": "ESNext",
     "incremental": true,
     "sourceMap": false,
     "module": "NodeNext",
-    "rootDir": ".",
     "moduleResolution": "NodeNext",
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
@@ -27,9 +34,6 @@
   },
   "watchOptions": {
     "excludeDirectories": ["**/node_modules", "**/dist"]
-  },
-  "ts-node": {
-    "esm": true
   },
   "exclude": ["node_modules", "dist", "public", "coverage", "build"]
 }
