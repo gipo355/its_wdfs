@@ -1,0 +1,15 @@
+{
+  "name": "two",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/main.ts",
+  "scripts": {
+    "start": "tsx main.ts",
+    "dev": "tsx main.ts",
+    "build": "nx build",
+    "lint": "nx lint",
+    "test": "nx test",
+    "postinstall": "husky install",
+    "release": "standard-version"
+  }
+}

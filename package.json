@@ -4,6 +4,7 @@
   "description": "monorepo for its web dev course 2023",
   "type": "module",
   "scripts": {
+    "start": "nx start",
     "dev": "nx dev",
     "build": "nx build",
     "lint": "nx lint",
