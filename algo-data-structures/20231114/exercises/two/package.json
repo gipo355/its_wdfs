@@ -8,8 +8,6 @@
     "dev": "tsx main.ts",
     "build": "nx build",
     "lint": "nx lint",
-    "test": "nx test",
-    "postinstall": "husky install",
-    "release": "standard-version"
+    "test": "nx test"
   }
 }
