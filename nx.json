@@ -9,7 +9,6 @@
       }
     }
   },
-  "npmScope": "@its_wdfs",
   "affected": {
     "defaultBase": "dev"
   },
