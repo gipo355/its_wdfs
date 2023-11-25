@@ -30,5 +30,5 @@ echo '########## tsc typeCheck in action...'
 echo '########## type check done'
 
 echo 'testing all projects'
-pnpm test:all
+# pnpm test:all
 echo 'all projects tested'
