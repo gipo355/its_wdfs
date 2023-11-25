@@ -11,6 +11,9 @@ importers:
       '@gipo355/eslint-config-base':
         specifier: 0.0.5
         version: 0.0.5(postcss-html@1.5.0)(postcss@8.4.31)(svelte@4.2.3)(tailwindcss@3.3.5)(typescript@5.3.2)(webpack@5.89.0)
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.0
       commitizen:
         specifier: 4.3.0
         version: 4.3.0(typescript@5.3.2)
@@ -605,7 +608,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 18.18.9
+      '@types/node': 20.10.0
       '@types/yargs': 17.0.31
       chalk: 4.1.2
     dev: true
@@ -868,6 +871,12 @@ packages:
   /@types/node@18.18.9:
     resolution: {integrity: sha512-0f5klcuImLnG4Qreu9hPj/rEfFq6YRc5n2mAjSsH+ec/mJL+3voBH0+8T7o8RpFjH7ovc+TRsL/c7OYIQsPTfQ==}
     requiresBuild: true
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
+
+  /@types/node@20.10.0:
+    resolution: {integrity: sha512-D0WfRmU9TQ8I9PFx9Yc+EBHw+vSpIub4IDvQivcp26PtPrdMGAq5SDcpXEo/epqa/DXotVpekHiLNTg3iaKXBQ==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -4279,7 +4288,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 18.18.9
+      '@types/node': 20.10.0
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -4299,7 +4308,7 @@ packages:
     resolution: {integrity: sha512-eIz2msL/EzL9UFTFFx7jBTkeZfku0yUAyZZZmJ93H2TYEiroIx2PQjEXcwYtYl8zXCxb+PAmA2hLIt/6ZEkPHw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@types/node': 18.18.9
+      '@types/node': 20.10.0
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1

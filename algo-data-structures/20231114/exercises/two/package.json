@@ -4,10 +4,10 @@
   "type": "module",
   "main": "dist/main.ts",
   "scripts": {
-    "start": "tsx main.ts",
+    "start": "node --import tsx main.ts",
     "dev": "tsx main.ts",
-    "build": "nx build",
-    "lint": "nx lint",
-    "test": "nx test"
+    "build": "",
+    "lint": "",
+    "test": "node --import tsx --test main.test.ts"
   }
 }
