@@ -5,9 +5,11 @@
   "main": "dist/main.ts",
   "scripts": {
     "start": "node --import tsx main.ts",
-    "dev": "tsx main.ts",
+    "dev": "node --import tsx --watch main.ts",
+    "lint": "eslint --ext .ts,.tsx .",
+    "tsc": "tsc --noEmit",
     "build": "",
-    "lint": "",
-    "test": "node --import tsx --test main.test.ts"
+    "node:test": "node --import tsx --test **/*.spec.ts",
+    "test": "npm-run-all --parallel lint tsc node:test"
   }
 }
