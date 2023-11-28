@@ -57,6 +57,10 @@ function fibonacci(n: number): number {
 
 ![](img/2023-11-28-16-53-59.png)
 
+applied to many things
+
+sezione aurea costruita su fibonacci
+
 ## i tre ingredienti della ricorsione
 
 1. decomposizione
@@ -83,3 +87,30 @@ all recursive steps till base case is memory in stack ( can be huge )
 ## recursive calls are slower and more expensive
 
 easier to write and understand
+
+## exercise
+
+conta lettere ricorsivamente
+
+# lo scopo della ricorsione
+
+scomporre un problema in sottoproblemi più piccoli e semplici
+
+tendenzialmente non è la soluzione più efficiente e non si usa
+
+piu semplice della versione iterativa
+
+# caml ocaml and tendenzialmente functional programming is recursive (f#)
+
+imperative, declarative
+
+# una parola palindroma
+
+una parola che si legge allo stesso modo da sinistra a destra e viceversa
+
+- stringa vuota e' palindroma?
+- 1 sola lettera e' palindroma?
+
+# es per casa
+
+moltiplicazaioe usando solo somme, metodo delle addizioni successive

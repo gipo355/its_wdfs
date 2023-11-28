@@ -1,0 +1,5 @@
+# definizioni
+
+problema computazionale
+
+algoritmo
