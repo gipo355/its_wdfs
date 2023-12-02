@@ -19,9 +19,13 @@
   - [architettura](#architettura)
     - [architettura client server](#architettura-client-server)
     - [peer to peer](#peer-to-peer)
-  - [protocolli di rete](#protocolli-di-rete) - [tcp/ip](#tcpip) - [www](#www) -
-  [ISP](#isp) - [browser](#browser) - [motori di ricerca](#motori-di-ricerca) -
-  [posta elettronica](#posta-elettronica)
+  - [protocolli di rete](#protocolli-di-rete)
+  - [tcp/ip](#tcpip)
+  - [www](#www)
+  - [ISP](#isp)
+  - [browser](#browser)
+  - [motori di ricerca](#motori-di-ricerca)
+  - [posta elettronica](#posta-elettronica)
   <!--toc:end-->
 
 ## tech informatica e comunicazioni
