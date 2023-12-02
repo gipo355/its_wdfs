@@ -1,5 +1,15 @@
 # indirizzo IP
 
+<!--toc:start-->
+
+- [indirizzo IP](#indirizzo-ip)
+  - [IPv4](#ipv4)
+  - [classi IP](#classi-ip)
+  - [indirizzi riservati](#indirizzi-riservati)
+  - [annotazioni abbreviate](#annotazioni-abbreviate)
+  - [how dns mask numbers work](#how-dns-mask-numbers-work)
+  <!--toc:end-->
+
 internet protocol address
 
 indirizzo univoco assegnato ad ogni dispositivo connesso ad una rete che
