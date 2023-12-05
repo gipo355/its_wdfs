@@ -205,5 +205,3 @@ tengo log chiamate per 6 mesi: sono per finalita' fatturazione
 obbligatorie per PE: agid
 
 in generale: misure di sicurezza in base ad analisi dei rischi
-
-8:
