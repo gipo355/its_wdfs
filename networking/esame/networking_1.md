@@ -51,6 +51,21 @@ connessione lan, wan, wireless, cloud
 - WAN wide area Neat work
 - VPN virtual private Network
 
+## wlan protocols
+
+standard IEEE 802.11
+
+- 802.11a: 54 Mbps ( 5 GHz )
+- 802.11b: 11 Mbps ( 2.4 GHz )
+- 802.11g: 54 Mbps ( 2.4 GHz )
+- 802.11n: 600 Mbps ( 2.4 GHz and 5 GHz )
+
+those are considered obsolete
+
+- 802.11ac is the new standard: 1 Gbps ( 5 GHz )
+
+![](img/2023-12-11-09-56-27.png)
+
 ## modello tcp/ip
 
 - applicazione ( http, ftp, smtp, dns )
