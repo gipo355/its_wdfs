@@ -1,6 +1,6 @@
 namespace Program;
 
-using Models;
+using Models.Product;
 
 public static class Program {
   public static async Task Main() {
@@ -10,9 +10,10 @@ public static class Program {
     Console.WriteLine("Init");
 
     await Products.GetAll();
-    Products.UpdateOne(id: 1, name: "changed", description: "changed", price: 1.99, quantity: 1, taxRate: 0.22);
-    Products.GetOne(id: 1);
-    Products.DeleteOne(id: 2);
+    await Products.GetOne(id: 1);
+    await Products.DeleteOne(id: 2);
+    await Products.CreateOne(name: "new", description: "new", price: 1.99, quantity: 1, taxRate: 0.22);
+    await Products.UpdateOne(id: 1, name: "changed", description: "changed", price: 1.99, quantity: 1, taxRate: 0.22);
 
   }
 
