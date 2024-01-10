@@ -3,8 +3,10 @@ services:
   sql-server-db:
     container_name: sql1
     image: mcr.microsoft.com/mssql/server:2022-latest
+    # volumes:
+    #   - /tmp/db/mssql:/var/opt/mssql/data
     ports:
-      - '1433:1433'
+      - '127.0.0.1:1433:1433'
     environment:
       ACCEPT_EULA: 'Y'
       MSSQL_SA_PASSWORD: 'Admin123456'
