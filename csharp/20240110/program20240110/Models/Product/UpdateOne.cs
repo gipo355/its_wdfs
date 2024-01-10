@@ -11,11 +11,17 @@ public static partial class Products {
     int? quantity = null,
     double? taxRate = null
   ) {
+    Console.WriteLine("###### Updating all product ######");
+    await Task.Delay(1000);
+
     // TODO: must check for at least 1 value to update
     if (name is null && description is null && price is null && quantity is null && taxRate is null) {
       Console.WriteLine("No values to update");
       return null;
     }
+
+    Console.WriteLine("###### Updating one product ######");
+    await Task.Delay(1000);
 
     var setQueryList = new List<string>(){
       name != null ? "Name = @n1" : "",
@@ -68,25 +74,25 @@ public static partial class Products {
     var products = new List<IProduct>();
 
     while (reader.Read()) {
-      // Console.WriteLine(
-      //     string.Format(
-      //         null,
-      //         @"Product inserted [
-      //           id: {0},
-      //           name: {1},
-      //           Description: {2},
-      //           price: {3},
-      //           quantity: {4},
-      //           taxrate: {5})
-      //         ]",
-      //         reader.GetInt32(0).ToString(),
-      //         reader.GetString(1),
-      //         reader.GetString(2),
-      //         reader.GetFloat(3).ToString(),
-      //         reader.GetInt32(4).ToString(),
-      //         reader.GetFloat(5).ToString()
-      //         )
-      //     );
+      Console.WriteLine(
+          string.Format(
+              null,
+              @"Product inserted [
+                id: {0},
+                name: {1},
+                Description: {2},
+                price: {3},
+                quantity: {4},
+                taxrate: {5})
+              ]",
+              reader.GetInt32(0).ToString(),
+              reader.GetString(1),
+              reader.GetString(2),
+              reader.GetFloat(3).ToString(),
+              reader.GetInt32(4).ToString(),
+              reader.GetFloat(5).ToString()
+              )
+          );
 
       products.Add(new Product(
         id: reader.GetInt32(0),

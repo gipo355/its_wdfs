@@ -4,31 +4,34 @@ using Npgsql;
 
 public static partial class Products {
   public static async Task<List<IProduct>> GetAll() {
+    Console.WriteLine("###### Fetching all product ######");
+    await Task.Delay(1000);
+
     // read data
     var readCommand = new NpgsqlCommand("SELECT * FROM Products", Postgres.Connection);
     var reader = await readCommand.ExecuteReaderAsync();
-    Console.WriteLine("Reading data");
+    // Console.WriteLine("Reading data");
 
     var products = new List<IProduct>();
     while (await reader.ReadAsync()) {
-      // Console.WriteLine(
-      //     string.Format(
-      //         null,
-      //         @"Product number {0} [
-      //           name: {1},
-      //           Description: {2},
-      //           price: {3},
-      //           quantity: {4},
-      //           taxrate: {5})
-      //           ]",
-      //         reader.GetInt32(0).ToString(),
-      //         reader.GetString(1),
-      //         reader.GetString(2),
-      //         reader.GetFloat(3).ToString(),
-      //         reader.GetInt32(4).ToString(),
-      //         reader.GetFloat(5).ToString()
-      //         )
-      //     );
+      Console.WriteLine(
+          string.Format(
+              null,
+              @"Product number {0} [
+                name: {1},
+                Description: {2},
+                price: {3},
+                quantity: {4},
+                taxrate: {5})
+                ]",
+              reader.GetInt32(0).ToString(),
+              reader.GetString(1),
+              reader.GetString(2),
+              reader.GetFloat(3).ToString(),
+              reader.GetInt32(4).ToString(),
+              reader.GetFloat(5).ToString()
+              )
+          );
 
       products.Add(new Product(
         id: reader.GetInt32(0),

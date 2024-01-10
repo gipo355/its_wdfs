@@ -12,6 +12,8 @@ public static partial class Products {
 
 ) {
     // TODO: must check for at least 1 value to update
+    Console.WriteLine("###### Creating one product ######");
+    await Task.Delay(1000);
 
     // prepare the string, keep comment as reference for multistring ternary
     var insertQuery = @$"
@@ -27,7 +29,7 @@ public static partial class Products {
         )
       RETURNING *;
     ";
-    Console.WriteLine(insertQuery);
+    // Console.WriteLine(insertQuery);
 
     // update data
     var updateCommand = new NpgsqlCommand(insertQuery, Postgres.Connection);
@@ -44,25 +46,25 @@ public static partial class Products {
     var products = new List<IProduct>();
 
     while (reader.Read()) {
-      // Console.WriteLine(
-      //     string.Format(
-      //         null,
-      //         @"Product inserted [
-      //           id: {0},
-      //           name: {1},
-      //           Description: {2},
-      //           price: {3},
-      //           quantity: {4},
-      //           taxrate: {5})
-      //         ]",
-      //         reader.GetInt32(0).ToString(),
-      //         reader.GetString(1),
-      //         reader.GetString(2),
-      //         reader.GetFloat(3).ToString(),
-      //         reader.GetInt32(4).ToString(),
-      //         reader.GetFloat(5).ToString()
-      //         )
-      //     );
+      Console.WriteLine(
+          string.Format(
+              null,
+              @"Product inserted [
+                id: {0},
+                name: {1},
+                Description: {2},
+                price: {3},
+                quantity: {4},
+                taxrate: {5})
+              ]",
+              reader.GetInt32(0).ToString(),
+              reader.GetString(1),
+              reader.GetString(2),
+              reader.GetFloat(3).ToString(),
+              reader.GetInt32(4).ToString(),
+              reader.GetFloat(5).ToString()
+              )
+          );
 
       var product = new Product(
         id: reader.GetInt32(0),

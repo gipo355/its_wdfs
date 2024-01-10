@@ -7,6 +7,9 @@ public static partial class Products {
   public static async Task DeleteOne(
     int id
   ) {
+
+    Console.WriteLine("###### Deleting one product ######");
+    await Task.Delay(1000);
     var deleteCommand = new NpgsqlCommand("DELETE FROM Products WHERE Id = @id1", Postgres.Connection);
 
     deleteCommand.Parameters.AddWithValue("id1", id);

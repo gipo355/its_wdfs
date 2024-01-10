@@ -3,35 +3,38 @@ using Drivers;
 using Npgsql;
 public static partial class Products {
   public static async Task<IProduct> GetOne(int id) {
+    Console.WriteLine("###### Fetching one product ######");
+    await Task.Delay(1000);
+
     // read data
     var readCommand = new NpgsqlCommand("SELECT * FROM Products WHERE Id = @id1 ", Postgres.Connection);
 
     readCommand.Parameters.AddWithValue("id1", id);
 
     var reader = await readCommand.ExecuteReaderAsync();
-    Console.WriteLine("Reading data");
+    // Console.WriteLine("Reading data");
 
     var products = new List<IProduct>();
 
     while (reader.Read()) {
-      // Console.WriteLine(
-      //     string.Format(
-      //         null,
-      //         @"Product number {0} [
-      //           name: {1},
-      //           Description: {2},
-      //           price: {3},
-      //           quantity: {4},
-      //           taxrate: {5})
-      //           ]",
-      //         reader.GetInt32(0).ToString(),
-      //         reader.GetString(1),
-      //         reader.GetString(2),
-      //         reader.GetFloat(3).ToString(),
-      //         reader.GetInt32(4).ToString(),
-      //         reader.GetFloat(5).ToString()
-      //         )
-      //     );
+      Console.WriteLine(
+          string.Format(
+              null,
+              @"Product number {0} [
+                name: {1},
+                Description: {2},
+                price: {3},
+                quantity: {4},
+                taxrate: {5})
+                ]",
+              reader.GetInt32(0).ToString(),
+              reader.GetString(1),
+              reader.GetString(2),
+              reader.GetFloat(3).ToString(),
+              reader.GetInt32(4).ToString(),
+              reader.GetFloat(5).ToString()
+              )
+          );
 
       products.Add(new Product(
         id: reader.GetInt32(0),
