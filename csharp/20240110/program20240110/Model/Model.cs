@@ -3,35 +3,28 @@ namespace Models;
 using Drivers;
 using Npgsql;
 
-// public class Product {
+
+public interface IProduct {
+  int Id { get; set; }
+  string Name { get; set; }
+  string Description { get; set; }
+  double Price { get; set; }
+  int Quantity { get; set; }
+  double TaxRate { get; set; }
+}
+// public class Product : IProduct {
 //   public int Id { get; set; }
-//   public string Name { get; set; }
-//   public string Description { get; set; }
+//   public required string Name { get; set; }
+//   public required string Description { get; set; }
 //   public double Price { get; set; }
 //   public int Quantity { get; set; }
 //   public double TaxRate { get; set; }
-//   public Product() { }
-// }
 
-// public interface IProduct {
-//   int Id { get; set; }
-//   string Name { get; set; }
-//   string Description { get; set; }
-//   double Price { get; set; }
-//   int Quantity { get; set; }
-//   double TaxRate { get; set; }
-// }
-// public record Product {
-//   int Id;
-//   string Name;
-//   string Description;
-//   double Price;
-//   int Quantity;
-//   double TaxRate;
+//   // public Product() { }
 // }
 
 // TODO: try linq?
-// TODO: entity framework with migrations?
+// TODO: convert entity framework with migrations?
 // TODO: methods should return a struct, record or class
 public static class Products {
 
