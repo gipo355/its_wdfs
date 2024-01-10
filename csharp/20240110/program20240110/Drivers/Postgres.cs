@@ -3,55 +3,34 @@ using Npgsql;
 
 public class Postgres {
   // Obtain connection string information from the portal
-  //
-  private static string Host = "127.0.0.1";
-  private static string User = "postgres";
-  private static string DBname = "csharp";
-  private static string Password = "admin123456";
-  private static string Port = "5432";
+  private static readonly string Host = Config.Environment.EnvVars["HOST"];
+  private static readonly string User = Config.Environment.EnvVars["USERNAME"];
+  private static readonly string DBname = Config.Environment.EnvVars["DATABASE"];
+  private static readonly string Password = Config.Environment.EnvVars["PASSWORD"];
+  private static readonly string Port = Config.Environment.EnvVars["PORT"];
 
-  static void Main(string[] args) {
-    // Build connection string using parameters from portal
-    //
-    string connString =
-        String.Format(
-            "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
-            Host,
-            User,
-            DBname,
-            Port,
-            Password);
+  public static NpgsqlConnection Connection { get; }
 
+  public static readonly string ConnectionString =
+      string.Format(
+          null,
+          "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
+          Host,
+          User,
+          DBname,
+          Port,
+          Password);
 
-    using (var conn = new NpgsqlConnection(connString)) {
-      Console.Out.WriteLine("Opening connection");
-      conn.Open();
+  static Postgres() {
+    Console.Out.WriteLine("Opening connection: Postgres");
+    Connection = new NpgsqlConnection(ConnectionString);
+    Connection.Open();
 
-      // using (var command = new NpgsqlCommand("DROP TABLE IF EXISTS inventory", conn)) {
-      //   command.ExecuteNonQuery();
-      //   Console.Out.WriteLine("Finished dropping table (if existed)");
+    // create the table if not exists
+    Console.Out.WriteLine("Creating table if not exists: Products");
+    new NpgsqlCommand("CREATE TABLE IF NOT EXISTS Products(Id serial PRIMARY KEY, Name VARCHAR(50), Description VARCHAR(255), Price FLOAT, Quantity INTEGER, TaxRate FLOAT)", Connection)
+    .ExecuteNonQuery();
 
-      // }
-
-      using (var command = new NpgsqlCommand("CREATE TABLE inventory(id serial PRIMARY KEY, name VARCHAR(50), quantity INTEGER)", conn)) {
-        command.ExecuteNonQuery();
-        Console.Out.WriteLine("Finished creating table");
-      }
-
-      using (var command = new NpgsqlCommand("INSERT INTO inventory (name, quantity) VALUES (@n1, @q1), (@n2, @q2), (@n3, @q3)", conn)) {
-        command.Parameters.AddWithValue("n1", "banana");
-        command.Parameters.AddWithValue("q1", 150);
-        command.Parameters.AddWithValue("n2", "orange");
-        command.Parameters.AddWithValue("q2", 154);
-        command.Parameters.AddWithValue("n3", "apple");
-        command.Parameters.AddWithValue("q3", 100);
-
-        int nRows = command.ExecuteNonQuery();
-        Console.Out.WriteLine(String.Format("Number of rows inserted={0}", nRows));
-      }
-    }
-
-    Console.WriteLine("Press RETURN to exit");
-    Console.ReadLine();
   }
+
 }
