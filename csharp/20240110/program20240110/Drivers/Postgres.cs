@@ -22,14 +22,39 @@ public class Postgres {
           Password);
 
   static Postgres() {
-    Console.Out.WriteLine("Opening connection: Postgres");
-    Connection = new NpgsqlConnection(ConnectionString);
-    Connection.Open();
+    try {
 
-    // create the table if not exists
-    Console.Out.WriteLine("Creating table if not exists: Products");
-    new NpgsqlCommand("CREATE TABLE IF NOT EXISTS Products(Id serial PRIMARY KEY, Name VARCHAR(50), Description VARCHAR(255), Price FLOAT, Quantity INTEGER, TaxRate FLOAT)", Connection)
-    .ExecuteNonQuery();
+
+      Console.Out.WriteLine("Opening connection: Postgres");
+      Connection = new NpgsqlConnection(ConnectionString);
+      Connection.Open();
+
+      // drop table for testing
+      try {
+        var isDev = Config.Environment.EnvVars["DEV"];
+        if (isDev != null && Config.Environment.EnvVars["DEV"] == "true") {
+          var dropTableCommand = new NpgsqlCommand("DROP TABLE IF EXISTS Products", Connection);
+          dropTableCommand.ExecuteNonQuery();
+          Console.Out.WriteLine("Finished dropping table (if existed)");
+        }
+      } catch (Exception e) {
+        Console.WriteLine(e.Message);
+      }
+
+      // create the table if not exists
+      Console.Out.WriteLine("Creating table if not exists: Products");
+      new NpgsqlCommand("CREATE TABLE IF NOT EXISTS Products(Id serial PRIMARY KEY, Name VARCHAR(50), Description VARCHAR(255), Price FLOAT, Quantity INTEGER, TaxRate FLOAT)", Connection)
+      .ExecuteNonQuery();
+
+    } catch (Exception e) {
+      Console.WriteLine(e.Message);
+    }
+
+
+    AppDomain.CurrentDomain.ProcessExit += (s, e) => {
+      Connection.Close();
+      Console.WriteLine("Closing connection Postgres");
+    };
 
   }
 

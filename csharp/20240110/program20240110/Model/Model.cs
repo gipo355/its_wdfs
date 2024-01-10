@@ -1,48 +1,41 @@
 namespace Model;
 
-public class Product {
+// public class Product {
 
-  public int Id { get; set; }
+//   public int Id { get; set; }
 
-  public string Name { get; set; }
+//   public string Name { get; set; }
 
-  public string Description { get; set; }
+//   public string Description { get; set; }
 
-  public double Price { get; set; }
+//   public double Price { get; set; }
 
-  public int Quantity { get; set; }
+//   public int Quantity { get; set; }
 
-  public double TaxRate { get; set; }
+//   public double TaxRate { get; set; }
 
-  public Product() { }
+//   public Product() { }
+// }
+
+public interface IProduct {
+  int Id { get; set; }
+  string Name { get; set; }
+  string Description { get; set; }
+  double Price { get; set; }
+  int Quantity { get; set; }
+  double TaxRate { get; set; }
 }
 
-// using System.Collections.Generic;
-// using Microsoft.EntityFrameworkCore;
+public class Products {
+  public void Get() { }
 
-// // namespace ConsoleApp.PostgreSQL {
-// //
-// public class BloggingContext : DbContext {
-//   public DbSet<Blog> Blogs { get; set; }
-//   public DbSet<Post> Posts { get; set; }
+  public void Get(int id) { }
 
-//   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//       => optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=csharp;Username=postgres;Password=admin123456");
-// }
+  public void Create() { }
 
-// public class Blog {
-//   public int BlogId { get; set; }
-//   public string Url { get; set; }
+  public void Update() { }
 
-//   public List<Post> Posts { get; set; }
-// }
+  public void Delete() { }
 
-// public class Post {
-//   public int PostId { get; set; }
-//   public string Title { get; set; }
-//   public string Content { get; set; }
 
-//   public int BlogId { get; set; }
-//   public Blog Blog { get; set; }
-// }
-// }
+}

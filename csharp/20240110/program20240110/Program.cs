@@ -4,17 +4,15 @@ using Npgsql;
 
 public static class Program {
   public static void Main() {
-    Console.Out.WriteLine("Opening connection");
-    var psqlConnection = new NpgsqlConnection(Drivers.Postgres.ConnectionString);
-    psqlConnection.Open();
 
-
+    // TODO: add command line commands for CRUD
+    // TODO: move actions to methods
 
     // insert some data
     var insert = new NpgsqlCommand(@"
     INSERT INTO Products (Name, Description, Price, Quantity, TaxRate)
     VALUES (@n1, @d1, @p1, @q1, @t1), (@n1, @d1, @p1, @q1, @t1), (@n1, @d1, @p1, @q1, @t1)
-    ", psqlConnection);
+    ", Drivers.Postgres.Connection);
 
     insert.Parameters.AddWithValue("n1", "banana");
     insert.Parameters.AddWithValue("d1", "banana");
@@ -27,7 +25,7 @@ public static class Program {
     Console.WriteLine(string.Format(null, "Number of rows inserted={0}", nRows));
 
     // read data
-    var readCommand = new NpgsqlCommand("SELECT * FROM Products", psqlConnection);
+    var readCommand = new NpgsqlCommand("SELECT * FROM Products", Drivers.Postgres.Connection);
     var reader = readCommand.ExecuteReader();
     Console.WriteLine("Reading data");
     while (reader.Read()) {
@@ -55,8 +53,6 @@ public static class Program {
     reader.Close();
 
 
-    Console.WriteLine("Closing connection");
-    psqlConnection.Close();
   }
 
 }
