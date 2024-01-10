@@ -1,11 +1,21 @@
 {
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": false
+    }
+  },
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "lint"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "lint"
+        ]
       }
     }
   },
@@ -13,19 +23,34 @@
     "defaultBase": "dev"
   },
   "namedInputs": {
-    "noMarkdown": ["!{projectRoot}/**/*.md"]
+    "noMarkdown": [
+      "!{projectRoot}/**/*.md"
+    ]
   },
   "targetDefaults": {
     "build": {
-      "inputs": ["noMarkdown", "^noMarkdown"],
-      "dependsOn": ["^build"]
+      "inputs": [
+        "noMarkdown",
+        "^noMarkdown"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     },
     "dev": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
-      "inputs": ["noMarkdown", "^noMarkdown"]
+      "inputs": [
+        "noMarkdown",
+        "^noMarkdown"
+      ]
     },
     "start": {}
-  }
+  },
+  "plugins": [
+    "@nx-dotnet/core"
+  ]
 }
