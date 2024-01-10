@@ -12,50 +12,67 @@ public interface IProduct {
   int Quantity { get; set; }
   double TaxRate { get; set; }
 }
-// public class Product : IProduct {
-//   public int Id { get; set; }
-//   public required string Name { get; set; }
-//   public required string Description { get; set; }
-//   public double Price { get; set; }
-//   public int Quantity { get; set; }
-//   public double TaxRate { get; set; }
-
-//   // public Product() { }
-// }
+public class Product(
+  int id,
+  string name,
+  string description,
+  double price,
+  int quantity,
+  double taxRate
+  ) : IProduct {
+  public int Id { get; set; } = id;
+  public string Name { get; set; } = name;
+  public string Description { get; set; } = description;
+  public double Price { get; set; } = price;
+  public int Quantity { get; set; } = quantity;
+  public double TaxRate { get; set; } = taxRate;
+}
 
 // TODO: try linq?
 // TODO: convert entity framework with migrations?
 // TODO: methods should return a struct, record or class
 public static class Products {
 
-  public static void GetAll() {
-
+  public static async Task<List<IProduct>> GetAll() {
     // read data
     var readCommand = new NpgsqlCommand("SELECT * FROM Products", Postgres.Connection);
-    var reader = readCommand.ExecuteReader();
+    var reader = await readCommand.ExecuteReaderAsync();
     Console.WriteLine("Reading data");
-    while (reader.Read()) {
-      Console.WriteLine(
-          string.Format(
-              null,
-              @"Product number {0} [
-                name: {1},
-                Description: {2},
-                price: {3},
-                quantity: {4},
-                taxrate: {5})
-                ]",
-              reader.GetInt32(0).ToString(),
-              reader.GetString(1),
-              reader.GetString(2),
-              reader.GetFloat(3).ToString(),
-              reader.GetInt32(4).ToString(),
-              reader.GetFloat(5).ToString()
-              )
-          );
+
+    var products = new List<IProduct>();
+    while (await reader.ReadAsync()) {
+      // Console.WriteLine(
+      //     string.Format(
+      //         null,
+      //         @"Product number {0} [
+      //           name: {1},
+      //           Description: {2},
+      //           price: {3},
+      //           quantity: {4},
+      //           taxrate: {5})
+      //           ]",
+      //         reader.GetInt32(0).ToString(),
+      //         reader.GetString(1),
+      //         reader.GetString(2),
+      //         reader.GetFloat(3).ToString(),
+      //         reader.GetInt32(4).ToString(),
+      //         reader.GetFloat(5).ToString()
+      //         )
+      //     );
+
+      products.Add(new Product(
+        id: reader.GetInt32(0),
+        name: reader.GetString(1),
+        description: reader.GetString(2),
+        price: reader.GetFloat(3),
+        quantity: reader.GetInt32(4),
+        taxRate: reader.GetFloat(5)
+      ));
     }
     // close the connection
     reader.Close();
+
+    return products;
   }
 
   public static void GetOne(int id) {

@@ -21,6 +21,16 @@ and <https://medium.com/@RobertKhou/getting-started-with-entity-framework-core-p
 
 <https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli>
 
+<https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/>
+
+<https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection?view=dotnet-plat-ext-8.0>
+
+<https://learn.microsoft.com/en-us/ef/core/get-started/overview/install>
+
+<https://learn.microsoft.com/en-us/aspnet/core/fundamentals/startup?view=aspnetcore-8.0>
+
+<https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext?view=efcore-8.0>
+
 singletons
 
 ## steps

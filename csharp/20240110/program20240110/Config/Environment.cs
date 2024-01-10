@@ -4,21 +4,11 @@ using dotenv.net;
 public static class Environment {
   public static IDictionary<string, string> EnvVars { get; }
 
-  private static void LoadEnv() => DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { "../.env" }));
-
-  // public static Load() {
-  //   LoadEnv();
-  //   EnvVars = DotEnv.Read();
-  // }
-
-
-  // public void Load() {
-  //   LoadEnv();
-  //   EnvVars = DotEnv.Read();
-  // }
+  // private static void LoadEnv() => DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { "../.env" }));
 
   static Environment() {
-    LoadEnv();
+    DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { "../.env" }));
+    // LoadEnv();
     EnvVars = DotEnv.Read();
   }
 
