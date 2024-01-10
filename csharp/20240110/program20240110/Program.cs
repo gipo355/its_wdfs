@@ -1,20 +1,18 @@
 namespace Program;
 
 using Models;
-using Config;
 
 public static class Program {
   public static void Main() {
 
     // TODO: add command line commands for CRUD
-    // TODO: move actions to methods
 
     Console.WriteLine("Init");
 
     Products.GetAll();
-    Products.GetOne(1);
-
-
+    Products.UpdateOne(id: 1, name: "changed", description: "changed", price: 1.99, quantity: 1, taxRate: 0.22);
+    Products.GetOne(id: 1);
+    Products.DeleteOne(id: 2);
 
   }
 
