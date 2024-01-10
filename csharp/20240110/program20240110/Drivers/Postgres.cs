@@ -9,7 +9,7 @@ public class Postgres {
   private static readonly string Password = Config.Environment.EnvVars["PASSWORD"];
   private static readonly string Port = Config.Environment.EnvVars["PORT"];
 
-  public static NpgsqlConnection Connection { get; }
+  public static NpgsqlConnection? Connection { get; }
 
   public static readonly string ConnectionString =
       string.Format(
@@ -21,18 +21,17 @@ public class Postgres {
           Port,
           Password);
 
+  // drop table for testing
   static Postgres() {
     try {
-
-
-      Console.Out.WriteLine("Opening connection: Postgres");
       Connection = new NpgsqlConnection(ConnectionString);
-      Connection.Open();
+      Console.Out.WriteLine("Opening connection: Postgres");
+      Connection?.Open();
 
-      // drop table for testing
+      // non critical exception handling, skip if not dev
       try {
         var isDev = Config.Environment.EnvVars["DEV"];
-        if (isDev != null && Config.Environment.EnvVars["DEV"] == "true") {
+        if (isDev is "true") {
           var dropTableCommand = new NpgsqlCommand("DROP TABLE IF EXISTS Products", Connection);
           dropTableCommand.ExecuteNonQuery();
           Console.Out.WriteLine("Finished dropping table (if existed)");
@@ -45,17 +44,32 @@ public class Postgres {
       Console.Out.WriteLine("Creating table if not exists: Products");
       new NpgsqlCommand("CREATE TABLE IF NOT EXISTS Products(Id serial PRIMARY KEY, Name VARCHAR(50), Description VARCHAR(255), Price FLOAT, Quantity INTEGER, TaxRate FLOAT)", Connection)
       .ExecuteNonQuery();
-
     } catch (Exception e) {
       Console.WriteLine(e.Message);
     }
 
+    // insert some data
+    Console.WriteLine("Inserting dummy data: Postgres");
+    var insert = new NpgsqlCommand(@"
+    INSERT INTO Products (Name, Description, Price, Quantity, TaxRate)
+    VALUES (@n1, @d1, @p1, @q1, @t1), (@n1, @d1, @p1, @q1, @t1), (@n1, @d1, @p1, @q1, @t1)
+    ", Connection);
+
+    insert.Parameters.AddWithValue("n1", "banana");
+    insert.Parameters.AddWithValue("d1", "banana");
+    insert.Parameters.AddWithValue("p1", 5.99);
+    insert.Parameters.AddWithValue("q1", 15);
+    insert.Parameters.AddWithValue("t1", 0.15);
+
+    var nRows = insert.ExecuteNonQuery();
+
+    Console.WriteLine(string.Format(null, "Number of rows inserted={0}", nRows));
 
     AppDomain.CurrentDomain.ProcessExit += (s, e) => {
-      Connection.Close();
-      Console.WriteLine("Closing connection Postgres");
+      if (Connection != null) {
+        Connection.Close();
+        Console.WriteLine("Closing connection Postgres");
+      }
     };
-
   }
-
 }
