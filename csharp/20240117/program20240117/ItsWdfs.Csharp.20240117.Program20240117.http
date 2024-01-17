@@ -1,0 +1,6 @@
+@ItsWdfs.Csharp._20240117.Program20240117_HostAddress = http://localhost:5132
+
+GET {{ItsWdfs.Csharp._20240117.Program20240117_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
