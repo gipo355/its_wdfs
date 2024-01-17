@@ -59,3 +59,4 @@ run docker compose up --build --detach inside ./docker/psql
 - add tests
 - add password and username table, with hashing (user table)
 - dry up code
+- convert wto webapi with maui frontend
