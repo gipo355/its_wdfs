@@ -5,9 +5,11 @@ products.
 
 on exit, close the connection
 
-using <https://learn.microsoft.com/en-us/azure/postgresql/single-server/connect-csharp>
+using
+<https://learn.microsoft.com/en-us/azure/postgresql/single-server/connect-csharp>
 
-and <https://medium.com/@RobertKhou/getting-started-with-entity-framework-core-postgresql-c6fa09681624>
+and
+<https://medium.com/@RobertKhou/getting-started-with-entity-framework-core-postgresql-c6fa09681624>
 
 <https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/>
 
@@ -49,3 +51,11 @@ console should accept commands with readline numbers
 create .env , refer to .env.default
 
 run docker compose up --build --detach inside ./docker/psql
+
+## todo
+
+- add exceptions
+- handle not existing db items, out of index
+- add tests
+- add password and username table, with hashing (user table)
+- dry up code
