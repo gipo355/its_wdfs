@@ -1,0 +1,51 @@
+{
+  "name": "csharp-20240124-program20240124-web-api1",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "csharp/20240124/program20240124-web-api1",
+  "targets": {
+    "build": {
+      "executor": "@nx-dotnet/core:build",
+      "outputs": [
+        "{workspaceRoot}/dist/csharp/20240124/program20240124-web-api1",
+        "{workspaceRoot}/dist/intermediates/csharp/20240124/program20240124-web-api1"
+      ],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx-dotnet/core:serve",
+      "options": {
+        "configuration": "Debug"
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx-dotnet/core:format"
+    },
+    "swagger": {
+      "executor": "@nx-dotnet/core:update-swagger",
+      "outputs": [
+        "{workspaceRoot}/generated/program20240124-web-api1-swagger/swagger.json"
+      ],
+      "options": {
+        "output": "generated/program20240124-web-api1-swagger/swagger.json"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    }
+  },
+  "tags": []
+}
