@@ -572,3 +572,5 @@ dist
 .svelte-kit
 
 .nx
+[Bb]in/
+[Oo]bj/
