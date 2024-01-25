@@ -1,6 +1,0 @@
-@ItsWdfs.Csharp._20240124.BaseApi_HostAddress = http://localhost:5007
-
-GET {{ItsWdfs.Csharp._20240124.BaseApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
