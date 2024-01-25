@@ -18,6 +18,8 @@
           "codegen",
           "swagger",
           "codegen",
+          "swagger",
+          "codegen",
           "swagger"
         ]
       }

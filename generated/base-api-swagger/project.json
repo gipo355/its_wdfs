@@ -1,0 +1,19 @@
+{
+  "name": "base-api-swagger",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "outputs": ["generated/base-api-swagger"]
+    },
+    "codegen": {
+      "executor": "@nx-dotnet/core:openapi-codegen",
+      "options": {
+        "openapiJsonPath": "generated/base-api-swagger/swagger.json",
+        "outputProject": "generated-base-api-types"
+      },
+      "dependsOn": ["^swagger"]
+    }
+  },
+  "implicitDependencies": ["Csharp20240124.BaseApi"]
+}

@@ -38,16 +38,7 @@
     },
   },
   "watchOptions": {
-    "excludeDirectories": [
-      "**/node_modules",
-      "**/dist"
-    ],
+    "excludeDirectories": ["**/node_modules", "**/dist"],
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "public",
-    "coverage",
-    "build"
-  ],
+  "exclude": ["node_modules", "dist", "public", "coverage", "build"],
 }
