@@ -1,6 +1,0 @@
-@ItsWdfs.Apps.Webapitest_HostAddress = http://localhost:5142
-
-GET {{ItsWdfs.Apps.Webapitest_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -1,4 +1,4 @@
-namespace ItsWdfs.Apps.Webapitest.Test;
+namespace ItsWdfs.Csharp._20240124.BaseApi.Test;
 
 public class UnitTest1
 {

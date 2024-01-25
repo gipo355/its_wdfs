@@ -5,7 +5,7 @@
       "DOM.Iterable",
       "DOM",
       "ScriptHost",
-      "ESNext.AsyncIterable"
+      "ESNext.AsyncIterable",
     ],
     "rootDir": ".",
     "outDir": "./dist",
@@ -32,13 +32,22 @@
     "noImplicitThis": true,
     "skipLibCheck": true,
     "paths": {
-      "@its_wdfs/generated/webapitest-types": [
-        "generated/webapitest-types/src/index.ts"
-      ]
-    }
+      "@its_wdfs/generated/base-api-types": [
+        "generated/base-api-types/src/index.ts",
+      ],
+    },
   },
   "watchOptions": {
-    "excludeDirectories": ["**/node_modules", "**/dist"]
+    "excludeDirectories": [
+      "**/node_modules",
+      "**/dist"
+    ],
   },
-  "exclude": ["node_modules", "dist", "public", "coverage", "build"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "coverage",
+    "build"
+  ],
 }

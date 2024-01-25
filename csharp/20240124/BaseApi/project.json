@@ -1,14 +1,14 @@
 {
-  "name": "Apps.webapitest",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "Csharp20240124.BaseApi",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/webapitest",
+  "sourceRoot": "csharp/20240124/BaseApi",
   "targets": {
     "build": {
       "executor": "@nx-dotnet/core:build",
       "outputs": [
-        "{workspaceRoot}/dist/apps/webapitest",
-        "{workspaceRoot}/dist/intermediates/apps/webapitest"
+        "{workspaceRoot}/dist/csharp/20240124/BaseApi",
+        "{workspaceRoot}/dist/intermediates/csharp/20240124/BaseApi"
       ],
       "options": {
         "configuration": "Debug",
@@ -36,9 +36,9 @@
     },
     "swagger": {
       "executor": "@nx-dotnet/core:update-swagger",
-      "outputs": ["{workspaceRoot}/generated/webapitest-swagger/swagger.json"],
+      "outputs": ["{workspaceRoot}/generated/base-api-swagger/swagger.json"],
       "options": {
-        "output": "generated/webapitest-swagger/swagger.json"
+        "output": "generated/base-api-swagger/swagger.json"
       },
       "dependsOn": ["build"]
     }

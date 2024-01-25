@@ -1,5 +1,5 @@
 {
-  "name": "@its_wdfs/generated/webapitest-types",
+  "name": "@its_wdfs/generated/base-api-types",
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0"

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>ItsWdfs.Csharp._20240124.BaseApi.Test</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -23,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\webapitest\ItsWdfs.Apps.Webapitest.csproj" />
+    <ProjectReference Include="..\BaseApi\ItsWdfs.Csharp.20240124.BaseApi.csproj" />
   </ItemGroup>
 
 </Project>

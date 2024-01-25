@@ -1,14 +1,14 @@
 {
-  "name": "Apps.webapitest.Test",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "Csharp20240124.BaseApi.Test",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/webapitest.Test",
+  "sourceRoot": "csharp/20240124/BaseApi.Test",
   "targets": {
     "build": {
       "executor": "@nx-dotnet/core:build",
       "outputs": [
-        "{workspaceRoot}/dist/apps/webapitest.Test",
-        "{workspaceRoot}/dist/intermediates/apps/webapitest.Test"
+        "{workspaceRoot}/dist/csharp/20240124/BaseApi.Test",
+        "{workspaceRoot}/dist/intermediates/csharp/20240124/BaseApi.Test"
       ],
       "options": {
         "configuration": "Debug",
