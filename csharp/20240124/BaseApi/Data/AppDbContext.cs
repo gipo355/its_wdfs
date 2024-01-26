@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models.Animal;
 using Models.Country;
+using Models.User;
 
 public class AppDbContext : DbContext
 {
@@ -34,4 +35,5 @@ public class AppDbContext : DbContext
   // public DbSet<Blog> Blogs { get; set; }
   public DbSet<Country> Countries { get; set; }
   public DbSet<Animal> Animals { get; set; }
+  public DbSet<User> Users { get; set; }
 }
