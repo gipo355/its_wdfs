@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddRazorPages();
+builder.Services.AddOutputCache();
 
 // var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // builder.Services.AddCors(options =>
@@ -52,6 +53,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.MapRazorPages();
+app.UseOutputCache();
 
 // ##### Map endpoints
 
