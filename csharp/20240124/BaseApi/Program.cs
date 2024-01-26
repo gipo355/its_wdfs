@@ -1,6 +1,7 @@
 using Controllers.Animals;
 using Data;
 using Microsoft.AspNetCore.Identity;
+using Models.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddOutputCache();
 builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 builder.Services.AddAuthorizationBuilder();
+builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<UserDbContext>();
 
 // var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // builder.Services.AddCors(options =>
