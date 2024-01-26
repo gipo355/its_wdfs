@@ -2,7 +2,7 @@ namespace Controllers.Animals;
 
 using System.Text.Json;
 using Data;
-using Models;
+using Models.Animal;
 
 public record AnimalResponse
 {

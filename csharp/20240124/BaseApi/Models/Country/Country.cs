@@ -1,4 +1,6 @@
-namespace Models;
+namespace Models.Country;
+
+using Models.Animal;
 
 // using System.Runtime.Serialization;
 // using System.Collections.Generic;

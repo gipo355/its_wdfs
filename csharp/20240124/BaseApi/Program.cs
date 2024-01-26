@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddRazorPages();
 
 // var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // builder.Services.AddCors(options =>
@@ -41,46 +42,19 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+if (!app.Environment.IsDevelopment())
+{
+  app.UseExceptionHandler("/Error");
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
+}
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.MapRazorPages();
 
-var summaries = new[]
-{
-  "Freezing",
-  "Bracing",
-  "Chilly",
-  "Cool",
-  "Mild",
-  "Warm",
-  "Balmy",
-  "Hot",
-  "Sweltering",
-  "Scorching"
-};
+// ##### Map endpoints
 
-app.MapGet(
-    "/weatherforecast",
-    () =>
-    {
-      var forecast = Enumerable
-        .Range(1, 5)
-        .Select(index => new WeatherForecast(
-          DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-          Random.Shared.Next(-20, 55),
-          summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-      return forecast;
-    }
-  )
-  .WithName("GetWeatherForecast")
-  .WithOpenApi();
-
-app.MapGroup("/api/v1/animals").MapAnimalsApi();
+app.MapGroup("/api/v1/animals").MapAnimalsApi().WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-  public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

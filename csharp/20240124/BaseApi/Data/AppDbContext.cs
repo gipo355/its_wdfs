@@ -6,7 +6,8 @@ namespace Data;
 using Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Models;
+using Models.Animal;
+using Models.Country;
 
 public class AppDbContext : DbContext
 {

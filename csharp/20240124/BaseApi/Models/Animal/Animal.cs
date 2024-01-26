@@ -1,4 +1,6 @@
-namespace Models;
+namespace Models.Animal;
+
+using Models.Country;
 
 public class Animal
 {

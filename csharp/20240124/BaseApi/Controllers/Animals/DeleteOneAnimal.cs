@@ -1,7 +1,7 @@
 namespace Controllers.Animals;
 
 using Data;
-using Models;
+using Models.Animal;
 
 public static partial class AnimalsController
 {
