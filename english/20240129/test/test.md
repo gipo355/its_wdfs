@@ -27,7 +27,7 @@ and family. **It's made easy**!
 In addition to that, users of HappyFood also publish recepies and tips on how to
 eat healthy.
 
-A ranking system with stars is avaliable for each recepie, so that users can
+A ranking system with stars is available for each recepie, so that users can
 easily find the best recepies.
 
 To promote social interaction, connections and avoid dispersion, HappyFood will
@@ -35,7 +35,7 @@ take consideration of a user's location and suggest recepies that are popular in
 the area.
 
 This to conform to the local culture and taste so that we don't end up with
-Napoli users being feeded with american hawaiaan pizza recepies.
+Napoli users being fed with american hawaiaan pizza recepies.
 
 Many more features and details are available on our website. We will also get
 deeper into the details during our next planned meeting.
