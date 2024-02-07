@@ -1,11 +1,11 @@
 build:
 	mvn compile
 
-package:
+package: build
 	mvn package
 
-run:
+run: build package
 	java -cp "lib/*:target/*" org.example.Main
 
-run2:
+run2: build package
 	mvn exec:java -Dexec.mainClass="org.example.Main"
