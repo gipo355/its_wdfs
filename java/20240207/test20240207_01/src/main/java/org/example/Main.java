@@ -9,19 +9,21 @@ import java.sql.SQLException;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
   public static void main(String[] args) {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
+    // TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the
+    // highlighted text
     // to see how IntelliJ IDEA suggests fixing it.
-
 
     try {
       System.out.println("connecting to server");
       System.out.println("registering driver");
-//      DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+      // DriverManager.registerDriver(new
+      // com.microsoft.sqlserver.jdbc.SQLServerDriver());
       DriverManager.registerDriver(new SQLServerDriver());
 
       System.out.println("driver registered");
 
-      // dotenv https://www.twilio.com/en-us/blog/working-with-environment-variables-in-java
+      // dotenv
+      // https://www.twilio.com/en-us/blog/working-with-environment-variables-in-java
       var url = "jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=Admin123456;encrypt=true;trustServerCertificate=true";
 
       System.out.println("connecting to server");
@@ -33,10 +35,11 @@ public class Main {
       System.out.println("creating statement");
 
       // create table
-//      var createTableSQL = "CREATE TABLE Products (ProductName varchar(255), Price int)";
-//
-//      System.out.println("executing statement");
-//      statement.executeQuery(createTableSQL);
+      // var createTableSQL = "CREATE TABLE Products (ProductName varchar(255), Price
+      // int)";
+      //
+      // System.out.println("executing statement");
+      // statement.executeQuery(createTableSQL);
 
       // insert data
       var insertSQL = "INSERT INTO Products (ProductName, Price) VALUES ('Bike', 200)";
@@ -60,7 +63,6 @@ public class Main {
       while (results.next()) {
         System.out.println("Product: " + results.getString(1));
       }
-
 
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
