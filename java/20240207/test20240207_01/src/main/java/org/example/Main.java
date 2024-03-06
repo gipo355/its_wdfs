@@ -1,5 +1,7 @@
 package org.example;
 
+// table nome desccrizione prezzo giacenza aliquota
+
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 
 import java.sql.DriverManager;
