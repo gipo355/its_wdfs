@@ -5,3 +5,7 @@
 create executable
 
 <https://www.baeldung.com/executable-jar-with-maven>
+
+# to-do
+
+- how to migrations
