@@ -1,17 +1,38 @@
+# assignment
+
+<!--toc:start-->
+
+- [assignment](#assignment)
+  - [description](#description)
+  - [example](#example)
+  - [todo](#todo)
+  - [how to deliver](#how-to-deliver)
+  <!--toc:end-->
+
+## description
+
 Un’azienda di servizi di trasporto organizza viaggi di turismo fornendo il mezzo
 di trasporto comprensivo di autista. Disegnare un DB che possa tenere traccia
 dei viaggi pianificati, gestisca l’utilizzo dei mezzi e degli autisti impegnati.
 Si consideri come esempio la seguente pianificazione di viaggi:
 
-Destinazione Partenza Arrivo Mezzo Autista Venezia 10/01/00 11/01/00 Pulmino 9
-posti Lorenzi Martino Parigi 10/01/20 15/01/20 Mercedes Azzurro 54 posti Rossi
-Andrea Roma 12/01/20 18/01/20 Mercedes Giallo 54 posti DeMarchi Filippo Padova
-16/01/20 18/01/20 Pulmino 9 posti Rossi Andrea Firenze 17/01/20 23/01/20
-Mercedes Azzurro 54 posti Lorenzi Martino Amalfi 21/01/20 26/01/20 Mercedes
-Giallo 54 posti Rossi Andrea Venezia 24/01/20 25/01/20 Pulmino 9 posti DeMarchi
-Filippo Madrid 26/01/20 30/01/20 Mercedes Azzurro 54 posti Lorenzi Martino
-Parigi 28/01/20 31/01/20 Mercedes Giallo 54 posti DeMarchi Filippo Venezia
-31/01/20 31/01/20 Pulmino 9 posti Rossi Andrea
+## example
+
+| Destinazione | Partenza | Arrivo   | Mezzo                     | Autista          |
+| ------------ | -------- | -------- | ------------------------- | ---------------- |
+| Venezia      | 10/01/00 | 11/01/00 | Pulmino 9 posti           | Lorenzi Martino  |
+| Parigi       | 10/01/20 | 15/01/20 | Mercedes Azzurro 54 posti | Rossi Andrea     |
+| Roma         | 12/01/20 | 18/01/20 | Mercedes Giallo 54 posti  | DeMarchi Filippo |
+| Padova       | 16/01/20 | 18/01/20 | Pulmino 9 posti           | Rossi Andrea     |
+| Firenze      | 17/01/20 | 23/01/20 | Mercedes Azzurro 54 posti | Lorenzi Martino  |
+| Amalfi       | 21/01/20 | 26/01/20 | Mercedes Giallo 54 posti  | Rossi Andrea     |
+| Venezia      | 24/01/20 | 25/01/20 | Pulmino 9 posti           | DeMarchi Filippo |
+| Madrid       | 26/01/20 | 30/01/20 | Mercedes Azzurro 54 posti | Lorenzi Martino  |
+| Parigi       | 28/01/20 | 31/01/20 | Mercedes Giallo 54        |
+
+## todo
+
+Design the table
 
 Determinare quanto segue:
 
@@ -23,6 +44,8 @@ Determinare quanto segue:
 5. Determinare il periodo con maggior numero di viaggi pianificati
 6. Creare una funzione che dato il periodo (Partenza/Arrivo) mi determini
    l’eventuale disponibilità di organizzare il viaggio ( Autista + Mezzo )
+
+## how to deliver
 
 ISTRUZIONI PER LA CONSEGNA:
 
