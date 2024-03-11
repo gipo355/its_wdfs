@@ -20,23 +20,26 @@ How to handle repeating trips?
 #### table: trips
 
 - Id: Guid
-- Departure: Varchar(50)
-- Destination: Varchar(50)
-- Distance: Int
-- Duration
+- Departure_location: Varchar(255)
+- Destination_location: Varchar(255)
+- Distance: Int (km)
+- Duration: Int (mins)
+- Price (per person): Decimal
 
 #### table: drivers
 
 - Id: Guid
-- Name: Varchar(50)
-- Surname: Varchar(50)
-- License: Varchar(50)
+- Name: Varchar(255)
+- Surname: Varchar(255)
+- License: Varchar(255)
 
 #### table: vehicles
 
 - Id: Guid
-- Name: Varchar(50)
+- Name: Varchar(255)
+- Color: Varchar(255)
 - Seats: Int
+- Plate: Varchar(155)
 
 #### table: Trips_Vehicles_Drivers
 
@@ -44,6 +47,6 @@ How to handle repeating trips?
 - Trip_id: Guid
 - Vehicle_id: Guid
 - Driver_id: Guid
-- Departure_date: Date
-- Departure_time: Date
-- Duration: default duration
+- Departure: DateTime
+- Duration: Int (mins)
+- Price

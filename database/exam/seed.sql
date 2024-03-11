@@ -29,8 +29,7 @@
 -- - Trip_id: Guid
 -- - Vehicle_id: Guid
 -- - Driver_id: Guid
--- - Departure_date: Date
--- - Departure_time: Date
+-- - Departure: DateTime
 -- - Duration: default duration
 
 -- resets the database
@@ -113,15 +112,14 @@ IF OBJECT_ID(N'Trips_Vehicles_Drivers', N'U') IS NULL
     BEGIN
         CREATE TABLE "Trips_Vehicles_Drivers"
         (
-            Id             uniqueidentifier primary key default newid(),
-            Trip_id        uniqueidentifier not null references Trips (Id),
-            Vehicle_id     uniqueidentifier not null references Vehicles (Id),
-            Driver_id      uniqueidentifier not null references Drivers (Id),
-            Departure_date DATETIME         not null,
-            Departure_time TIME             not null,
+            Id         uniqueidentifier primary key default newid(),
+            Trip_id    uniqueidentifier not null references Trips (Id),
+            Vehicle_id uniqueidentifier not null references Vehicles (Id),
+            Driver_id  uniqueidentifier not null references Drivers (Id),
+            Departure  DATETIME         not null,
             -- we repeat it here to allow modifications for single trips
-            Duration       INT              not null, -- minutes
-            Price          MONEY            not null,
+            Duration   INT              not null, -- minutes
+            Price      MONEY            not null,
         )
         CREATE INDEX IX_Trip_id ON Trips_Vehicles_Drivers (Trip_id, Vehicle_id, Driver_id)
     END
@@ -156,53 +154,61 @@ VALUES ('Vehicle1', 4, 'AB123'),
        ('Vehicle5', 20, 'IJ345')
 go
 
-INSERT INTO "Trips_Vehicles_Drivers" (Trip_id, Vehicle_id, Driver_id, Departure_date, Departure_time, Duration, Price)
+INSERT INTO "Trips_Vehicles_Drivers" (Trip_id, Vehicle_id, Driver_id, Departure, Duration, Price)
 VALUES ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
         (SELECT Id FROM Vehicles WHERE Name = 'Vehicle1'),
         (SELECT Id FROM Drivers WHERE Name = 'John'),
-        '2021-01-01',
-        '12:00',
+        '2021-01-01 12:00',
         180,
+        1000),
+
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle1'),
+        (SELECT Id FROM Drivers WHERE Name = 'John'),
+        '2021-01-01 12:00',
+           -- 2 days in minutes
+        60 * 24 * 2,
         1000),
 
        ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
         (SELECT Id FROM Vehicles WHERE Name = 'Vehicle2'),
         (SELECT Id FROM Drivers WHERE Name = 'Jane'),
-        '2021-01-01',
-        '12:00',
+        '2021-01-01 12:00',
         180,
         1000),
 
        ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
         (SELECT Id FROM Vehicles WHERE Name = 'Vehicle3'),
         (SELECT Id FROM Drivers WHERE Name = 'Jack'),
-        '2021-01-01',
-        '12:00',
+        '2021-01-02 12:00',
+        180,
+        1000),
+
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Timisoara' AND Destination_location = 'Bucharest'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle3'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jack'),
+        '2021-01-05 12:00',
+        180,
+        1000),
+
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Timisoara' AND Destination_location = 'Bucharest'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle3'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jack'),
+        '2021-01-07 12:00',
         180,
         1000),
 
        ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
         (SELECT Id FROM Vehicles WHERE Name = 'Vehicle4'),
         (SELECT Id FROM Drivers WHERE Name = 'Jill'),
-        '2021-01-01',
-        '12:00',
+        '2021-01-01 12:00',
         180,
         1000),
 
        ((SELECT Id FROM Trips WHERE Departure_location = 'Brasov' AND Destination_location = 'Bucharest'),
         (SELECT Id FROM Vehicles WHERE Name = 'Vehicle4'),
         (SELECT Id FROM Drivers WHERE Name = 'Jill'),
-        '2021-01-01',
-        '12:00',
-        180,
-        1000),
-
-
-       ((SELECT Id FROM Trips WHERE Departure_location = 'Timisoara' AND Destination_location = 'Bucharest'),
-        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle3'),
-        (SELECT Id FROM Drivers WHERE Name = 'Jack'),
-        '2021-01-01',
-        '12:00',
+        '2021-01-03 12:00',
         180,
         1000)
 go
@@ -229,31 +235,93 @@ GROUP BY d.Name, d.Surname
 
 -- 2. Il numero di viaggi e il totale di giorni di impegno per ogni mezzo
 
-SELECT v.Name, COUNT(*) AS Trips, SUM(Duration) AS Total_Duration
-FROM Trips_Vehicles_Drivers tvd
-         JOIN Vehicles v ON tvd.Vehicle_id = v.Id
-GROUP BY v.Name
-
--- 2b. Il numero di viaggi e il totale di giorni di impegno per ogni mezzo
--- il totale di giorni deve essere 1 giorno se inizio e fine viaggio sono lo stesso giorno,
--- altrimenti il numero di giorni tra inizio e fine viaggio
-
 SELECT v.Name,
-       COUNT(*)                                                                      AS Trips,
-       SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date))) AS Total_Days_Used
+       COUNT(*)                                                                AS Trips,
+       SUM(DATEDIFF(DAY, Departure, DATEADD(MINUTE, Duration, Departure)) + 1) AS Total_Days_Used
 FROM Trips_Vehicles_Drivers tvd
          JOIN Vehicles v ON tvd.Vehicle_id = v.Id
 GROUP BY v.Name
+
 
 -- 3. La percentuale di giorni di utilizzo di ogni pulman (su totale viaggi)
 
 SELECT v.Name,
-       COUNT(*)                                                                      AS Trips,
-       SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date))) AS Total_Duration,
-       (SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date))) * 100.0) /
-       (SELECT SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date)))
-        FROM Trips_Vehicles_Drivers)                                                 AS Percentage
+       COUNT(*) * 100.0 / (SELECT COUNT(*) FROM Trips_Vehicles_Drivers) AS Percentage
 FROM Trips_Vehicles_Drivers tvd
          JOIN Vehicles v ON tvd.Vehicle_id = v.Id
 GROUP BY v.Name
+
+-- 4. L’elenco dei viaggi più richiesti con la media di numero di giorni per viaggio,
+-- order by average days
+
+SELECT t.Departure_location,
+       t.Destination_location,
+       AVG(DATEDIFF(DAY, tvd.Departure, DATEADD(MINUTE, tvd.Duration, tvd.Departure)) + 1) AS Avg_Days
+--        COUNT(*)                                                                            AS Num_Trips
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Trips t ON tvd.Trip_id = t.Id
+GROUP BY t.Departure_location, t.Destination_location
+ORDER BY Avg_Days DESC
+
+-- 4b. L’elenco dei viaggi più richiesti con la media di numero di giorni per viaggio,
+--     order by number of trips
+
+SELECT t.Departure_location,
+       t.Destination_location,
+       AVG(DATEDIFF(DAY, tvd.Departure, DATEADD(MINUTE, tvd.Duration, tvd.Departure)) + 1) AS Avg_Days,
+       COUNT(*)                                                                            AS Num_Trips
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Trips t ON tvd.Trip_id = t.Id
+GROUP BY t.Departure_location, t.Destination_location
+ORDER BY Num_Trips DESC
+
+-- 4c. L’elenco dei viaggi più richiesti con la media di numero di giorni per viaggio,
+--     order by number of trips. Add the trip ID
+
+SELECT t.Id                                                                                AS Trip_id,
+       t.Departure_location,
+       t.Destination_location,
+       AVG(DATEDIFF(DAY, tvd.Departure, DATEADD(MINUTE, tvd.Duration, tvd.Departure)) + 1) AS Avg_Days,
+       COUNT(*)                                                                            AS Num_Trips
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Trips t ON tvd.Trip_id = t.Id
+GROUP BY t.Id, t.Departure_location, t.Destination_location
+ORDER BY Num_Trips DESC
+
+-- 5. Determinare il periodo con maggior numero di viaggi pianificati
+
+SELECT DATEPART(YEAR, tvd.Departure)  AS Year,
+       DATEPART(MONTH, tvd.Departure) AS Month,
+       COUNT(*)                       AS Num_Trips
+FROM Trips_Vehicles_Drivers tvd
+GROUP BY DATEPART(YEAR, tvd.Departure), DATEPART(MONTH, tvd.Departure)
+ORDER BY Num_Trips DESC
+
+-- 6. Creare una funzione che dato il periodo (Partenza/Arrivo) mi determini
+--    l’eventuale disponibilità di organizzare il viaggio ( Autista + Mezzo )
+-- create a function that returns the availability of a vehicle and driver for a given period
+
+IF OBJECT_ID(N'GetAvailability', N'FN') IS NOT NULL
+    BEGIN
+        DROP FUNCTION GetAvailability
+    END
+go
+
+CREATE FUNCTION GetAvailability(@Departure DATETIME, @Duration INT)
+    RETURNS TABLE
+        AS
+        RETURN
+        SELECT v.Name AS Vehicle,
+               d.Name AS Driver
+        FROM Trips_Vehicles_Drivers tvd
+                 JOIN Vehicles v ON tvd.Vehicle_id = v.Id
+                 JOIN Drivers d ON tvd.Driver_id = d.Id
+        WHERE tvd.Departure > @Departure
+          AND tvd.Departure < DATEADD(MINUTE, @Duration, @Departure)
+go
+
+-- test the function
+
+SELECT *
+FROM GetAvailability('2021-01-07 12:00', 180)
 
