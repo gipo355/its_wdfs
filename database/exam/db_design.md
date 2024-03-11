@@ -15,6 +15,8 @@
 
 ### Database: transport_company
 
+How to handle repeating trips?
+
 #### table: trips
 
 - Id: Guid

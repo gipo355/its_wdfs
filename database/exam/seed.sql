@@ -1,3 +1,38 @@
+-- design:
+
+-- ### Database: transport_company
+
+-- #### table: trips
+--
+-- - Id: Guid
+-- - Departure: Varchar(50)
+-- - Destination: Varchar(50)
+-- - Distance: Int
+-- - Duration
+--
+-- #### table: drivers
+--
+-- - Id: Guid
+-- - Name: Varchar(50)
+-- - Surname: Varchar(50)
+-- - License: Varchar(50)
+--
+-- #### table: vehicles
+--
+-- - Id: Guid
+-- - Name: Varchar(50)
+-- - Seats: Int
+--
+-- #### table: Trips_Vehicles_Drivers
+--
+-- - Id: Guid
+-- - Trip_id: Guid
+-- - Vehicle_id: Guid
+-- - Driver_id: Guid
+-- - Departure_date: Date
+-- - Departure_time: Date
+-- - Duration: default duration
+
 -- resets the database
 
 use master
@@ -5,9 +40,9 @@ go
 
 IF EXISTS(SELECT *
           FROM sys.databases
-          WHERE name = 'Test')
+          WHERE name = 'Exam_Transport_Company')
     BEGIN
-        DROP DATABASE Test
+        DROP DATABASE Exam_Transport_Company
     END
 -- ELSE
 --     BEGIN
@@ -15,7 +50,7 @@ IF EXISTS(SELECT *
 --     END
 -- go
 
-CREATE DATABASE Test
+CREATE DATABASE Exam_Transport_Company
 go
 
 -- IF NOT EXISTS(SELECT *
@@ -25,183 +60,200 @@ go
 --         CREATE DATABASE Test
 --     END
 
-USE Test
+USE Exam_Transport_Company
 go
 
 -- create tables
 
-IF OBJECT_ID(N'Users', N'U') IS NULL
+IF OBJECT_ID(N'Trips', N'U') IS NULL
     BEGIN
-        CREATE TABLE "Users"
+        CREATE TABLE "Trips"
         (
 
-            Id       uniqueidentifier primary key default newid(),
-            Name     VARCHAR(100) not null,
-            Surname  VARCHAR(100) not null,
-            Email    VARCHAR(100) not null unique,
-            Password VARCHAR(100) not null,
-            Role     VARCHAR(100) NOT NULL CHECK (Role IN ('Admin', 'User')),
-            Token    VARCHAR(100)
+            Id                   uniqueidentifier primary key default newid(),
+            -- duration in mins, used to calculate the arrival time and date
+            -- as a virtual prop
+            Departure_location   VARCHAR(255) not null,
+            Destination_location VARCHAR(255) not null,
+            Distance             INT          not null, -- meters
+            Duration             INT          not null, -- mins
+            Price                MONEY        not null, -- cents
         )
     END
 go
 
-IF OBJECT_ID(N'Products', N'U') IS NULL
+IF OBJECT_ID(N'Drivers', N'U') IS NULL
     BEGIN
-        CREATE TABLE "Products"
+        CREATE TABLE "Drivers"
         (
 
-            Id          uniqueidentifier primary key default newid(),
-            Name        VARCHAR(100) not null unique,
-            Description VARCHAR(255),
-            Quantity    INT          not null,
-            Price       MONEY        not null,
-            VAT         FLOAT        not null,
+            Id      uniqueidentifier primary key default newid(),
+            Name    VARCHAR(255) not null,
+            Surname VARCHAR(255) not null,
+            License VARCHAR(255) not null unique
         )
     END
 
 go
 
-IF OBJECT_ID(N'Clients', N'U') IS NULL
+IF OBJECT_ID(N'Vehicles', N'U') IS NULL
     BEGIN
-        CREATE TABLE "Clients"
+        CREATE TABLE "Vehicles"
         (
 
-            Id         uniqueidentifier primary key default newid(),
-            Name       VARCHAR(100) not null,
-            Surname    VARCHAR(100) not null,
-            Email      VARCHAR(100) not null,
-            VAT_number VARCHAR(100) not null unique
+            Id    uniqueidentifier primary key default newid(),
+            Name  VARCHAR(255) not null,
+            Color VARCHAR(255),
+            Seats INT          not null,
+            Plate VARCHAR(255) not null unique,
         )
     END
 
-IF OBJECT_ID(N'Sales', N'U') IS NULL
+IF OBJECT_ID(N'Trips_Vehicles_Drivers', N'U') IS NULL
     BEGIN
-        CREATE TABLE "Sales"
+        CREATE TABLE "Trips_Vehicles_Drivers"
         (
-            Id        uniqueidentifier primary key default newid(),
-            Date      DATE                         DEFAULT GETDATE(),
-            Client_id uniqueidentifier not null references Clients (Id),
-            -- other info like sender etc
---             FOREIGN KEY (Client_id) REFERENCES Clients (Id)
+            Id             uniqueidentifier primary key default newid(),
+            Trip_id        uniqueidentifier not null references Trips (Id),
+            Vehicle_id     uniqueidentifier not null references Vehicles (Id),
+            Driver_id      uniqueidentifier not null references Drivers (Id),
+            Departure_date DATETIME         not null,
+            Departure_time TIME             not null,
+            -- we repeat it here to allow modifications for single trips
+            Duration       INT              not null, -- minutes
+            Price          MONEY            not null,
         )
-    END
-go
-
-IF OBJECT_ID(N'Sales_Products', N'U') IS NULL
-    BEGIN
-        CREATE TABLE "Sales_Products"
-        (
-            Sale_id    uniqueidentifier references Sales (Id),
-            Product_id uniqueidentifier references Products (Id),
-            Quantity   INT   not null,
-            Price      MONEY not null,
-            VAT        FLOAT not null,
---             FOREIGN KEY (Product_id) REFERENCES Products (Id),
---             FOREIGN KEY (Sale_id) REFERENCES Sales (Id)
-            -- index both
-        )
-        CREATE INDEX IX_Sale_id ON Sales_Products (Sale_id, Product_id)
+        CREATE INDEX IX_Trip_id ON Trips_Vehicles_Drivers (Trip_id, Vehicle_id, Driver_id)
     END
 go
 
-IF OBJECT_ID(N'Suppliers', N'U') IS NULL
-    BEGIN
-        CREATE TABLE "Suppliers"
-        (
-
-            Id         uniqueidentifier primary key default newid(),
-            Name       VARCHAR(100) not null,
-            Email      VARCHAR(100) not null,
-            VAT_number VARCHAR(100) not null unique
-        )
-    END
-go
-
-IF OBJECT_ID(N'Buys', N'U') IS NULL
-    BEGIN
-        CREATE TABLE "Buys"
-        (
-            Id          uniqueidentifier primary key default newid(),
-            Date        DATE                         DEFAULT GETDATE(),
-            Supplier_Id uniqueidentifier not null references Suppliers (Id),
-            -- other info like sender etc
---             FOREIGN KEY (Supplier_Id) REFERENCES Suppliers (Id)
-        )
-    END
-go
-
-IF OBJECT_ID(N'Buys_Products', N'U') IS NULL
-    BEGIN
-        CREATE TABLE "Buys_Products"
-        (
-            Buy_id     uniqueidentifier references Buys (Id),
-            Product_id uniqueidentifier references Products (Id),
-            Quantity   INT   not null,
-            Price      MONEY not null,
-            VAT        FLOAT not null,
---             FOREIGN KEY (Product_id) REFERENCES Products (Id),
---             FOREIGN KEY (Buy_id) REFERENCES Buys (Id)
-            -- index both
-        )
-        CREATE INDEX IX_Buy_id ON Buys_Products (Buy_id, Product_id)
-    END
-go
 
 -- seed some data
 
-INSERT INTO "Users" (Name, Surname, Email, Password, Role, Token)
-VALUES ('John', 'Doe', 'johndoe@example.com', 'password', 'Admin', 'token'),
-       ('Jane', 'Doe', 'janedoe@example.com', 'password', 'User', 'token')
-
-INSERT INTO "Products" (Name, Quantity, Price, VAT)
-VALUES ('Product1', 10, 100, 0.23),
-       ('Product2', 20, 200, 0.23)
-
-INSERT INTO "Clients" (Name, Surname, Email, VAT_number)
-VALUES ('Client1', 'Surname1', 'client1@example.com', 'VAT1'),
-       ('Client2', 'Surname2', 'client2@example.com', 'VAT2')
-
-INSERT INTO "Sales" (Client_id)
-VALUES ( (SELECT Id FROM Clients WHERE Name = 'Client1')), ((SELECT Id FROM Clients WHERE Name = 'Client2'))
-
+INSERT INTO "Trips" (Departure_location, Destination_location, Distance, Duration, Price)
+VALUES ('Bucharest', 'Brasov', 2000, 180, 1000),
+       ('Brasov', 'Bucharest', 20000, 190, 1000),
+       ('Bucharest', 'Cluj', 400000, 60, 2000),
+       ('Cluj', 'Bucharest', 400, 90, 2000),
+       ('Bucharest', 'Iasi', 400, 90, 2000),
+       ('Iasi', 'Bucharest', 400, 90, 2000),
+       ('Bucharest', 'Timisoara', 400, 90, 2000),
+       ('Timisoara', 'Bucharest', 400, 90, 2000)
 go
 
-INSERT INTO "Sales_Products" (Sale_id, Product_id, Quantity, Price, VAT)
-VALUES ((SELECT Id FROM Sales WHERE Client_id = (SELECT Id FROM Clients WHERE Name = 'Client1')),
-        (SELECT Id FROM Products WHERE Name = 'Product1'),
-        1,
-        100,
-        0.23),
-
-       ((SELECT Id FROM Sales WHERE Client_id = (SELECT Id FROM Clients WHERE Name = 'Client2')),
-        (SELECT Id FROM Products WHERE Name = 'Product2'),
-        2,
-        200,
-        0.23)
-
+INSERT INTO "Drivers" (Name, Surname, License)
+VALUES ('John', 'Doe', 'AB123'),
+       ('Jane', 'Doe', 'CD456'),
+       ('Jack', 'Doe', 'EF789'),
+       ('Jill', 'Doe', 'GH012')
 go
 
-INSERT INTO "Suppliers" (Name, Email, VAT_number)
-VALUES ('Supplier1', 'supp1@example.com', 'VAT1'),
-       ('Supplier2', 'supp1@example.com', 'VAT2')
-
-INSERT INTO "Buys" (Supplier_Id)
-VALUES ( (SELECT Id FROM Suppliers WHERE Name = 'Supplier1')), ((SELECT Id FROM Suppliers WHERE Name = 'Supplier2'))
-
+INSERT INTO "Vehicles" (Name, Seats, Plate)
+VALUES ('Vehicle1', 4, 'AB123'),
+       ('Vehicle2', 8, 'CD456'),
+       ('Vehicle3', 12, 'EF789'),
+       ('Vehicle4', 16, 'GH012'),
+       ('Vehicle5', 20, 'IJ345')
 go
 
-INSERT INTO "Buys_Products" (Buy_id, Product_id, Quantity, Price, VAT)
-VALUES ((SELECT Id FROM Buys WHERE Supplier_Id = (SELECT Id FROM Suppliers WHERE Name = 'Supplier1')),
-        (SELECT Id FROM Products WHERE Name = 'Product1'),
-        1,
-        100,
-        0.23),
+INSERT INTO "Trips_Vehicles_Drivers" (Trip_id, Vehicle_id, Driver_id, Departure_date, Departure_time, Duration, Price)
+VALUES ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle1'),
+        (SELECT Id FROM Drivers WHERE Name = 'John'),
+        '2021-01-01',
+        '12:00',
+        180,
+        1000),
 
-       ((SELECT Id FROM Buys WHERE Supplier_Id = (SELECT Id FROM Suppliers WHERE Name = 'Supplier2')),
-        (SELECT Id FROM Products WHERE Name = 'Product2'),
-        2,
-        200,
-        0.23)
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle2'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jane'),
+        '2021-01-01',
+        '12:00',
+        180,
+        1000),
 
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle3'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jack'),
+        '2021-01-01',
+        '12:00',
+        180,
+        1000),
+
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Bucharest' AND Destination_location = 'Brasov'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle4'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jill'),
+        '2021-01-01',
+        '12:00',
+        180,
+        1000),
+
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Brasov' AND Destination_location = 'Bucharest'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle4'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jill'),
+        '2021-01-01',
+        '12:00',
+        180,
+        1000),
+
+
+       ((SELECT Id FROM Trips WHERE Departure_location = 'Timisoara' AND Destination_location = 'Bucharest'),
+        (SELECT Id FROM Vehicles WHERE Name = 'Vehicle3'),
+        (SELECT Id FROM Drivers WHERE Name = 'Jack'),
+        '2021-01-01',
+        '12:00',
+        180,
+        1000)
 go
+
+
+-- QUERIES
+
+-- Determinare quanto segue:
+-- 1. Il numero di viaggi pianificati per ogni singolo autista
+-- 2. Il numero di viaggi e il totale di giorni di impegno per ogni mezzo
+-- 3. La percentuale di giorni di utilizzo di ogni pulman (su totale viaggi)
+-- 4. L’elenco dei viaggi più richiesti con la media di numero di giorni per
+--    viaggio
+-- 5. Determinare il periodo con maggior numero di viaggi pianificati
+-- 6. Creare una funzione che dato il periodo (Partenza/Arrivo) mi determini
+--    l’eventuale disponibilità di organizzare il viaggio ( Autista + Mezzo )
+
+-- 1: Il numero di viaggi pianificati per ogni singolo autista
+
+SELECT d.Name, d.Surname, COUNT(*) AS Trips
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Drivers d ON tvd.Driver_id = d.Id
+GROUP BY d.Name, d.Surname
+
+-- 2. Il numero di viaggi e il totale di giorni di impegno per ogni mezzo
+
+SELECT v.Name, COUNT(*) AS Trips, SUM(Duration) AS Total_Duration
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Vehicles v ON tvd.Vehicle_id = v.Id
+GROUP BY v.Name
+
+-- 2b. Il numero di viaggi e il totale di giorni di impegno per ogni mezzo
+-- il totale di giorni deve essere 1 giorno se inizio e fine viaggio sono lo stesso giorno,
+-- altrimenti il numero di giorni tra inizio e fine viaggio
+
+SELECT v.Name,
+       COUNT(*)                                                                      AS Trips,
+       SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date))) AS Total_Days_Used
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Vehicles v ON tvd.Vehicle_id = v.Id
+GROUP BY v.Name
+
+-- 3. La percentuale di giorni di utilizzo di ogni pulman (su totale viaggi)
+
+SELECT v.Name,
+       COUNT(*)                                                                      AS Trips,
+       SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date))) AS Total_Duration,
+       (SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date))) * 100.0) /
+       (SELECT SUM(DATEDIFF(DAY, Departure_date, DATEADD(MINUTE, Duration, Departure_date)))
+        FROM Trips_Vehicles_Drivers)                                                 AS Percentage
+FROM Trips_Vehicles_Drivers tvd
+         JOIN Vehicles v ON tvd.Vehicle_id = v.Id
+GROUP BY v.Name
+
