@@ -1,3 +1,6 @@
+USE Exam_Transport_Company
+go
+
 -- QUERIES
 
 -- Determinare quanto segue:

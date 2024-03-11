@@ -1,3 +1,6 @@
+USE Exam_Transport_Company
+go
+
 -- 6. Creare una funzione che dato il periodo (Partenza/Arrivo) mi determini
 --    l’eventuale disponibilità di organizzare il viaggio ( Autista + Mezzo )
 
