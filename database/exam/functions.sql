@@ -1,7 +1,6 @@
 -- 6. Creare una funzione che dato il periodo (Partenza/Arrivo) mi determini
 --    l’eventuale disponibilità di organizzare il viaggio ( Autista + Mezzo )
 
--- we start by creating a function that returns all occupied vehicles and drivers in trips
 -- we can the filter by period and check which drivers and vehicles are not present in the list
 
 DROP FUNCTION GetOccupied
@@ -11,13 +10,13 @@ DROP FUNCTION GetDriversAvailability
 DROP FUNCTION GetAvailability
 go
 
-
 -- 6a
--- create a function that checks the availability using the previous function GetOccupied
 -- we want to list all vehicles not in the occupied list,
 -- then all drivers not in the occupied list
 -- join at the end the two lists to make a table with all available vehicles and drivers
 
+-- step 1
+-- we start by creating a function that returns all occupied vehicles and drivers in trips
 CREATE FUNCTION GetOccupied(@Departure DATETIME, @Duration INT)
     RETURNS TABLE
         AS
@@ -41,7 +40,7 @@ CREATE FUNCTION GetOccupied(@Departure DATETIME, @Duration INT)
 go
 
 
--- step 2, get drivers available
+-- step 2, get drivers available using getoccupied
 CREATE FUNCTION GetDriversAvailability(@Departure DATETIME, @Duration INT)
     RETURNS TABLE
         AS
@@ -116,7 +115,7 @@ SELECT *
 FROM GetTrips()
 go
 
--- ### TESTS done to make it work
+-- ### TESTS done to make it work, not part of the solution
 
 SELECT v.Name AS Vehicle,
        d.Name AS Driver
@@ -127,10 +126,9 @@ WHERE tvd.Departure > '2021-01-07 12:00'
   AND tvd.Departure < DATEADD(MINUTE, 180, '2021-01-07 12:00')
 go
 
--- this function returns all occupied vehicles and drivers in trips,
+-- this returns all occupied vehicles and drivers in trips,
 -- together with the departure time and duration of the trip
 -- we can use it to check if a vehicle and a driver are available for a given period
-
 -- we want to list all drivers and vehicles not present in a filtered list
 
 SELECT t.Departure_location,
