@@ -1,5 +1,6 @@
 module.exports = {
   extends: ['@gipo355/eslint-config-base'],
+  ignorePatterns: ['**/*'],
   settings: {
     'import/resolver': {
       typescript: {
