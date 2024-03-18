@@ -56,3 +56,21 @@ export class AppComponent {
   // protected cartSrv = inject(CartSourceService)
 
 ```
+
+this works too
+
+```ts
+export class AppComponent {
+  cartSourceService = new CartSourceService();
+  // items = CART;
+  items = this.cartSourceService.getCart();
+
+  vat = getVAT('IT');
+
+  // DI: use cart source service in the code, request in constructor
+  constructor(cartSourceService: CartSourceService) {
+    this.cartSourceService = cartSourceService;
+  }
+  // or
+  // protected cartSrv = inject(CartSourceService)
+```
