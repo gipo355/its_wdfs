@@ -24,3 +24,9 @@ types:
 ## automation
 
 # restoring
+
+when you restore, always have all connections closed
+
+add opt flag, close all connections, and override existing data
+
+if you want to keep live connectins, use the flags
